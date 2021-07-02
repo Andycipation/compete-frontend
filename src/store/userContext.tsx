@@ -22,7 +22,7 @@ interface Props {
 }
 
 export const UserContextProvider: React.FC<Props> = (props: Props) => {
-  const [username, setUsername] = useState("andrew");
+  const [username, setUsername] = useState("");
 
   const handleLogin = async (username: string) => {
     // TODO: check lowercase username stuff

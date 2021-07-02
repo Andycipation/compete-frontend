@@ -23,7 +23,7 @@ const HomePage: React.FC = () => {
   }, [username]);
 
   const loggedInJsx = !problemSets ? (
-    <div>loading...</div>
+    <div>loading problems...</div>
   ) : (
     <div>
       <Typography variant="h5">Your problem lists for {dateString}</Typography>

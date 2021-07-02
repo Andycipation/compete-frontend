@@ -60,7 +60,7 @@ const Navigation: React.FC = () => {
             onClick={() => history.push("/")}
             style={{ cursor: "pointer" }}
           >
-            <Typography variant="h5">Cubing Web App</Typography>
+            <Typography variant="h5">Compete</Typography>
           </Box>
 
           {/* Users tab */}
