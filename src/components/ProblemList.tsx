@@ -13,8 +13,10 @@ const ProblemList: React.FC<Props> = (props: Props) => {
     <Card raised>
       <Typography variant="h6">{props.heading}</Typography>
       <List>
-        {props.problems.map((problem: Problem) => (
-          <ListItem button>{problem.title}</ListItem>
+        {props.problems.map((problem: Problem, index) => (
+          <ListItem key={index} button>
+            {problem.title}
+          </ListItem>
         ))}
       </List>
     </Card>
