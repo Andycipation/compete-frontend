@@ -30,18 +30,18 @@ const App: React.FC = () => {
 
   useEffect(() => {
     setLoading(false);
-    // axios
-    //   .post("/refresh-token") // includes cookies
-    //   .then(async (res: AxiosResponse<RefreshTokenResponse>) => {
-    //     // TODO: having "ok" is kind of redundant?
-    //     const { ok, accessToken } = res.data;
-    //     if (ok) {
-    //       setAccessToken(accessToken);
-    //       const payload = jwt.decode(accessToken) as AccessTokenPayload;
-    //       userContext.handleLogin(payload.username);
-    //     }
-    //     setLoading(false);
-    //   });
+    axios
+      .post("/refresh-token") // includes cookies
+      .then(async (res: AxiosResponse<RefreshTokenResponse>) => {
+        // TODO: having "ok" is kind of redundant?
+        const { ok, accessToken } = res.data;
+        if (ok) {
+          setAccessToken(accessToken);
+          const payload = jwt.decode(accessToken) as AccessTokenPayload;
+          userContext.handleLogin(payload.username);
+        }
+        setLoading(false);
+      });
   }, [userContext]);
 
   if (loading) {

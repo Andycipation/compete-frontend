@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from "react";
-import assert from "assert";
 import { Grid, Typography } from "@material-ui/core";
 
 import UserContext from "../store/userContext";
@@ -17,11 +16,11 @@ const HomePage: React.FC = () => {
 
   useEffect(() => {
     if (username) {
-      // axios.get("/problems", { params: { username } }).then((res) => {
-      //   setProblemSets(res.data.problemSets);
-      // });
+      axios.get("/problems", { params: { username } }).then((res) => {
+        setProblemSets(res.data.problemSets);
+      });
     }
-  }, []);
+  }, [username]);
 
   const loggedInJsx = !problemSets ? (
     <div>loading...</div>
@@ -30,7 +29,7 @@ const HomePage: React.FC = () => {
       <Typography variant="h5">Your problem lists for {dateString}</Typography>
       <Grid container direction="row">
         {Object.entries(problemSets).map(([tag, problems], index) => (
-          <Grid item>
+          <Grid key={index} item>
             <ProblemList key={index} heading={tag} problems={problems} />
           </Grid>
         ))}
