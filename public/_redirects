@@ -1,0 +1,7 @@
+# This is a comment
+# see https://docs.netlify.com/routing/redirects/
+# or https://docs.netlify.com/routing/redirects/redirect-options/
+
+# redirect all paths to index.html, where the react-router will
+# take care of the rest
+/*  /index.html  200
