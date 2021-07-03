@@ -11,8 +11,7 @@ const HomePage: React.FC = () => {
   const { username } = useContext(UserContext);
   const dateString = new Date(Date.now()).toLocaleDateString();
 
-  const [problemSets, setProblemSets] =
-    useState<{ [key: string]: Problem[] }>();
+  const [problemSets, setProblemSets] = useState<[string, Problem[]][]>();
 
   useEffect(() => {
     if (username) {
@@ -23,23 +22,24 @@ const HomePage: React.FC = () => {
   }, [username]);
 
   const loggedInJsx = !problemSets ? (
-    <div>loading problems...</div>
+    <Typography>loading problems...</Typography>
   ) : (
     <div>
       <Typography variant="h5">Your problem lists for {dateString}</Typography>
-      <Grid container direction="row">
-        {Object.entries(problemSets).map(([tag, problems], index) => (
-          <Grid key={index} item>
-            <ProblemList key={index} heading={tag} problems={problems} />
+      <Grid container direction="row" spacing={3}>
+        {problemSets.map(([tag, problems], index) => (
+          <Grid key={index} item xs={3}>
+            <ProblemList heading={tag} problems={problems} />
           </Grid>
         ))}
       </Grid>
     </div>
   );
+
   const loggedOutJsx = (
-    <div>
+    <Typography>
       You are currently not logged in; log in <a href="/login">here</a>.
-    </div>
+    </Typography>
   );
 
   return (
