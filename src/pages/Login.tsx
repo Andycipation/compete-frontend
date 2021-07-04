@@ -4,7 +4,7 @@ import { Button, Grid, TextField, Typography } from "@material-ui/core";
 import axios from "../axiosConfig";
 import { parse as parseQueryString } from "query-string";
 
-import { LoginRequest } from "../common/interfaces";
+import { LoginRequest } from "../common/interfaces/requests";
 
 import UserContext from "../store/userContext";
 import { setAccessToken } from "../store/accessToken";
@@ -42,52 +42,63 @@ const LoginPage: React.FC = () => {
   return (
     <div>
       <Typography variant="h5">Sign in to Cubers</Typography>
-      <Grid container xs={12} xl={3}>
-        <form onSubmit={handleSubmit}>
-          <div>
-            <TextField
-              label="Username"
-              type="text"
-              onChange={(e) => setUsername(e.target.value)}
-              required
-              autoFocus
-            />
-          </div>
-          <div>
-            <TextField
-              label="Password"
-              type="password"
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </div>
-          <div>
-            <Button type="submit" onClick={handleSubmit}>
-              Sign in
-            </Button>
-          </div>
-
-          {/* errors */}
-          {errors.length > 0 && (
+      <Grid container>
+        <Grid
+          item
+          xs={12}
+          xl={3}
+          style={
+            {
+              // gridTemplateColumns="repeat(1, "
+            }
+          }
+        >
+          <form onSubmit={handleSubmit}>
             <div>
-              <Typography variant="body1">
-                The following errors were found:
-              </Typography>
-              <ul>
-                {errors.map((error: string, i: number) => (
-                  <Typography component="li" key={i} variant="body2">
-                    {error}
-                  </Typography>
-                ))}
-              </ul>
+              <TextField
+                label="Username"
+                type="text"
+                onChange={(e) => setUsername(e.target.value)}
+                required
+                autoFocus
+              />
             </div>
-          )}
-          <div>
-            <Typography>
-              Need an account? <Link to="/register">Sign up now.</Link>
-            </Typography>
-          </div>
-        </form>
+            <div>
+              <TextField
+                label="Password"
+                type="password"
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+            </div>
+            <div>
+              <Button type="submit" onClick={handleSubmit}>
+                Sign in
+              </Button>
+            </div>
+
+            {/* errors */}
+            {errors.length > 0 && (
+              <div>
+                <Typography variant="body1">
+                  The following errors were found:
+                </Typography>
+                <ul>
+                  {errors.map((error: string, i: number) => (
+                    <Typography component="li" key={i} variant="body2">
+                      {error}
+                    </Typography>
+                  ))}
+                </ul>
+              </div>
+            )}
+            <div>
+              <Typography>
+                Need an account? <Link to="/register">Sign up now.</Link>
+              </Typography>
+            </div>
+          </form>
+        </Grid>
       </Grid>
     </div>
   );

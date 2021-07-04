@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Typography } from "@material-ui/core";
 import axios from "../axiosConfig";
 
@@ -9,21 +9,17 @@ import assert from "assert";
 
 const LogoutPage: React.FC = () => {
   const userContext = useContext(UserContext);
-  const history = useHistory();
 
   useEffect(() => {
-    if (!userContext.username) {
-      // already logged out
-      history.replace("/");
-      return;
+    if (userContext.username) {
+      const accessToken = getAccessToken();
+      assert(accessToken);
+      axios.post("/logout", { accessToken }).then(() => {
+        setAccessToken("");
+        userContext.handleLogout();
+      });
     }
-    const accessToken = getAccessToken();
-    assert(accessToken);
-    axios.post("/logout", { accessToken }).then(() => {
-      setAccessToken("");
-      userContext.handleLogout();
-    });
-  }, [history, userContext]);
+  }, [userContext]);
 
   return (
     <div>

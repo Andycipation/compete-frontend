@@ -8,7 +8,7 @@ interface UserContextData {
 
 const UserContext = createContext<UserContextData>({
   // TODO: fix this "hack"? (is this even a hack?)
-  username: "n/a",
+  username: "N/A",
   handleLogin: async () => {
     console.error("called handleLogin before init");
   },

@@ -6,8 +6,10 @@ import { AxiosResponse } from "axios";
 import jwt from "jsonwebtoken";
 
 import UserContext from "./store/userContext";
-import { RefreshTokenResponse } from "./common/interfaces";
+import { RefreshTokenResponse } from "./common/interfaces/requests";
 import { setAccessToken } from "./store/accessToken";
+
+import ProtectedRoute from "./components/ProtectedRoute";
 
 import Layout from "./layout/Layout";
 
@@ -15,6 +17,7 @@ import HomePage from "./pages/Home";
 import LoginPage from "./pages/Login";
 import LogoutPage from "./pages/Logout";
 import NotFoundPage from "./pages/NotFound";
+import ProfilePage from "./pages/Profile";
 import RegisterPage from "./pages/Register";
 import UsersPage from "./pages/Users";
 
@@ -67,6 +70,15 @@ const App: React.FC = () => {
           <Route path="/register" exact>
             <RegisterPage />
           </Route>
+
+          <ProtectedRoute path="/user" exact>
+            <ProfilePage mine />
+          </ProtectedRoute>
+          <Route path="/user/:username" exact>
+            <ProfilePage />
+          </Route>
+
+          <ProtectedRoute path="/edit-profile" exact></ProtectedRoute>
 
           {/* 404 not found */}
           <Route path="/">

@@ -36,7 +36,11 @@ const Navigation: React.FC = () => {
   const loggedInJsx = (
     <>
       <Typography>
-        Welcome, <strong>{userContext.username}</strong>.
+        Welcome,{" "}
+        <strong>
+          <a href="/edit-profile">{userContext.username}</a>
+        </strong>
+        .
       </Typography>
       <Box marginLeft="0.5rem" marginTop="0.05rem">
         <Button

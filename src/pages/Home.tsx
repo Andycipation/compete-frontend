@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Grid, Typography } from "@material-ui/core";
 
 import UserContext from "../store/userContext";
-import { Problem } from "../common/interfaces";
+import { Problem } from "../common/interfaces/data";
 
 import axios from "../axiosConfig";
 import ProblemList from "../components/ProblemList";
@@ -11,17 +11,28 @@ const HomePage: React.FC = () => {
   const { username } = useContext(UserContext);
   const dateString = new Date(Date.now()).toLocaleDateString();
 
+  // TODO: move this to context
+  const [hasBojId, setHasBojId] = useState(false);
   const [problemSets, setProblemSets] = useState<[string, Problem[]][]>();
 
   useEffect(() => {
     if (username) {
-      axios.get("/problems", { params: { username } }).then((res) => {
-        setProblemSets(res.data.problemSets);
-      });
+      try {
+        axios.get("/problems", { params: { username } }).then((res) => {
+          setProblemSets(res.data.problemSets);
+          setHasBojId(true);
+        });
+      } catch (err) {
+        // no BOJ id configured
+      }
     }
   }, [username]);
 
-  const loggedInJsx = !problemSets ? (
+  const loggedInJsx = !hasBojId ? (
+    <Typography>
+      {username}, you do not have a BOJ handle configured.
+    </Typography>
+  ) : !problemSets ? (
     <Typography>loading problems...</Typography>
   ) : (
     <div>
@@ -29,7 +40,7 @@ const HomePage: React.FC = () => {
       <Grid container direction="row" spacing={3}>
         {problemSets.map(([tag, problems], index) => (
           <Grid key={index} item xs={3}>
-            <ProblemList heading={tag} problems={problems} />
+            <ProblemList heading={tag} problems={problems} showTiers />
           </Grid>
         ))}
       </Grid>
