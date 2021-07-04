@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
+import { Link as RouterLink } from "react-router-dom";
 import { Grid, Typography } from "@material-ui/core";
 
 import UserContext from "../store/userContext";
@@ -44,7 +45,8 @@ const HomePage: React.FC = () => {
 
   const loggedOutJsx = (
     <Typography>
-      You are currently not logged in; log in <a href="/login">here</a>.
+      You are currently not logged in; log in{" "}
+      <RouterLink to="/login">here</RouterLink>.
     </Typography>
   );
 

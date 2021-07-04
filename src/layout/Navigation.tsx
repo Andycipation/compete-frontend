@@ -45,11 +45,8 @@ const Navigation: React.FC = () => {
       <Typography>
         Welcome,{" "}
         <MaterialLink component={RouterLink} to="/user" color="inherit">
-          {userContext.username}
+          <strong>{userContext.username}</strong>
         </MaterialLink>
-        {/* <strong>
-          <a href="/user">{userContext.username}</a>
-        </strong> */}
         .
       </Typography>
       <Box marginLeft="0.5rem" marginTop="0.05rem">
