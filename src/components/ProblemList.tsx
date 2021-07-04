@@ -54,6 +54,7 @@ const ProblemList: React.FC<Props> = (props: Props) => {
             // below: forwarded to <a> tag
             href={`https://www.acmicpc.net/problem/${problem.id}`}
             target="_blank" // open a new tab
+            rel="noopener" // security issues: https://web.dev/external-anchors-use-rel-noopener/
           >
             {props.showTiers && (
               <img

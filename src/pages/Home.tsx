@@ -12,7 +12,6 @@ const HomePage: React.FC = () => {
   const dateString = new Date(Date.now()).toLocaleDateString();
 
   // TODO: move this to context
-  const [hasBojId, setHasBojId] = useState(false);
   const [problemSets, setProblemSets] = useState<[string, Problem[]][]>();
 
   useEffect(() => {
@@ -20,19 +19,15 @@ const HomePage: React.FC = () => {
       try {
         axios.get("/problems", { params: { username } }).then((res) => {
           setProblemSets(res.data.problemSets);
-          setHasBojId(true);
         });
       } catch (err) {
-        // no BOJ id configured
+        // no BOJ id configured?
+        console.error(err);
       }
     }
   }, [username]);
 
-  const loggedInJsx = !hasBojId ? (
-    <Typography>
-      {username}, you do not have a BOJ handle configured.
-    </Typography>
-  ) : !problemSets ? (
+  const loggedInJsx = !problemSets ? (
     <Typography>loading problems...</Typography>
   ) : (
     <div>
@@ -53,17 +48,7 @@ const HomePage: React.FC = () => {
     </Typography>
   );
 
-  return (
-    <div>
-      <Typography variant="h3" align="center">
-        Compete
-      </Typography>
-      <Typography align="center">
-        An app for anyone looking to improve at competitive programming.
-      </Typography>
-      {username ? loggedInJsx : loggedOutJsx}
-    </div>
-  );
+  return <div>{username ? loggedInJsx : loggedOutJsx}</div>;
 };
 
 export default HomePage;

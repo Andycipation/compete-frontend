@@ -13,6 +13,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 
 import Layout from "./layout/Layout";
 
+import AboutPage from "./pages/About";
 import HomePage from "./pages/Home";
 import LoginPage from "./pages/Login";
 import LogoutPage from "./pages/Logout";
@@ -78,7 +79,13 @@ const App: React.FC = () => {
             <ProfilePage />
           </Route>
 
-          <ProtectedRoute path="/edit-profile" exact></ProtectedRoute>
+          <ProtectedRoute path="/edit-profile" exact>
+            {/* edit profile page */}
+          </ProtectedRoute>
+
+          <Route path="/about">
+            <AboutPage />
+          </Route>
 
           {/* 404 not found */}
           <Route path="/">

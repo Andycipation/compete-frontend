@@ -1,6 +1,13 @@
 import React, { useContext } from "react";
-import { useHistory } from "react-router-dom";
-import { AppBar, Box, Button, Toolbar, Typography } from "@material-ui/core";
+import { Link as RouterLink, useHistory } from "react-router-dom";
+import {
+  AppBar,
+  Box,
+  Button,
+  Link as MaterialLink,
+  Toolbar,
+  Typography,
+} from "@material-ui/core";
 
 import UserContext from "../store/userContext";
 
@@ -37,9 +44,12 @@ const Navigation: React.FC = () => {
     <>
       <Typography>
         Welcome,{" "}
-        <strong>
-          <a href="/edit-profile">{userContext.username}</a>
-        </strong>
+        <MaterialLink component={RouterLink} to="/user" color="inherit">
+          {userContext.username}
+        </MaterialLink>
+        {/* <strong>
+          <a href="/user">{userContext.username}</a>
+        </strong> */}
         .
       </Typography>
       <Box marginLeft="0.5rem" marginTop="0.05rem">
@@ -75,6 +85,17 @@ const Navigation: React.FC = () => {
               onClick={() => history.push("/users")}
             >
               Users
+            </Button>
+          </Box>
+
+          {/* About page (similar format to DMOJ) */}
+          <Box marginX="0.2rem" marginTop="0.05rem">
+            <Button
+              className={classes.button}
+              color="inherit"
+              onClick={() => history.push("/about")}
+            >
+              About
             </Button>
           </Box>
 
