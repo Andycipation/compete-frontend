@@ -28,7 +28,7 @@ const LoginPage: React.FC = () => {
     try {
       const res = await axios.post("/login", data);
       setAccessToken(res.data.accessToken);
-      userContext.handleLogin(username);
+      await userContext.handleLogin(username);
     } catch (err) {
       const errors = Object.values<string>(err.response.data.errors);
       setErrors(errors.filter((msg) => msg.length > 0));

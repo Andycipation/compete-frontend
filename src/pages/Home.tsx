@@ -3,7 +3,7 @@ import { Link as RouterLink } from "react-router-dom";
 import { Grid, Typography } from "@material-ui/core";
 
 import UserContext from "../store/userContext";
-import { Problem } from "../common/interfaces/data";
+import { ProblemForUser } from "../common/interfaces/data";
 
 import axios from "../axiosConfig";
 import ProblemList from "../components/ProblemList";
@@ -13,7 +13,8 @@ const HomePage: React.FC = () => {
   const dateString = new Date(Date.now()).toLocaleDateString();
 
   // TODO: move this to context
-  const [problemSets, setProblemSets] = useState<[string, Problem[]][]>();
+  const [problemSets, setProblemSets] =
+    useState<[string, ProblemForUser[]][]>();
 
   useEffect(() => {
     if (username) {
@@ -35,7 +36,7 @@ const HomePage: React.FC = () => {
       <Typography variant="h5">Your problem lists for {dateString}</Typography>
       <Grid container direction="row" spacing={3}>
         {problemSets.map(([tag, problems], index) => (
-          <Grid key={index} item xs={3}>
+          <Grid key={index} item xs={12} sm={6} md={3}>
             <ProblemList heading={tag} problems={problems} showTiers />
           </Grid>
         ))}

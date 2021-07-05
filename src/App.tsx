@@ -35,15 +35,16 @@ const App: React.FC = () => {
   useEffect(() => {
     setLoading(false);
     axios
-      .post("/refresh-token") // includes cookies
+      .post("/refresh-token")
       .then(async (res: AxiosResponse<RefreshTokenResponse>) => {
         // TODO: having "ok" is kind of redundant?
         const { ok, accessToken } = res.data;
         if (ok) {
           setAccessToken(accessToken);
           const payload = jwt.decode(accessToken) as AccessTokenPayload;
-          userContext.handleLogin(payload.username);
+          await userContext.handleLogin(payload.username);
         }
+        // TODO: wait for userContext to finish loading?
         setLoading(false);
       });
   }, [userContext]);
@@ -51,6 +52,7 @@ const App: React.FC = () => {
   if (loading) {
     return <div>loading...</div>;
   }
+
   return (
     <BrowserRouter>
       <Layout>

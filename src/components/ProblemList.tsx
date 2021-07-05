@@ -9,11 +9,12 @@ import {
   Theme,
   Typography,
 } from "@material-ui/core";
-import { Problem } from "../common/interfaces/data";
+import { ProblemForUser } from "../common/interfaces/data";
+import { lightGreen } from "@material-ui/core/colors";
 
 interface Props {
   heading: string;
-  problems: Problem[];
+  problems: ProblemForUser[];
   showTiers?: boolean;
 }
 
@@ -26,12 +27,16 @@ const useStyles = makeStyles((theme: Theme) =>
     card: {
       borderRadius: theme.spacing(1),
     },
-    problemListItem: {
-      padding: theme.spacing(0.1, 2),
-    },
     tierBadge: {
       height: "15px",
       marginRight: theme.spacing(1),
+    },
+    problemListItemUnsolved: {
+      padding: theme.spacing(0.1, 2),
+    },
+    problemListItemSolved: {
+      padding: theme.spacing(0.1, 2),
+      backgroundColor: lightGreen[500],
     },
   })
 );
@@ -45,16 +50,20 @@ const ProblemList: React.FC<Props> = (props: Props) => {
         {props.heading}
       </Typography>
       <List>
-        {props.problems.map((problem: Problem, index) => (
+        {props.problems.map(({ problem, solved }, index) => (
           <ListItem
             key={index}
-            className={classes.problemListItem}
+            className={
+              solved
+                ? classes.problemListItemSolved
+                : classes.problemListItemUnsolved
+            }
             button
             component="a"
             // below: forwarded to <a> tag
             href={`https://www.acmicpc.net/problem/${problem.id}`}
             target="_blank" // open a new tab
-            rel="noopener" // security issues: https://web.dev/external-anchors-use-rel-noopener/
+            rel="noreferrer"
           >
             {props.showTiers && (
               <img

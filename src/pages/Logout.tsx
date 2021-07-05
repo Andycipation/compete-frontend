@@ -14,9 +14,9 @@ const LogoutPage: React.FC = () => {
     if (userContext.username) {
       const accessToken = getAccessToken();
       assert(accessToken);
-      axios.post("/logout", { accessToken }).then(() => {
+      axios.post("/logout", { accessToken }).then(async () => {
         setAccessToken("");
-        userContext.handleLogout();
+        await userContext.handleLogout();
       });
     }
   }, [userContext]);

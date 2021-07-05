@@ -35,7 +35,7 @@ const RegisterPage: React.FC = () => {
     try {
       const res = await axios.post("/register", data);
       setAccessToken(res.data.accessToken);
-      userContext.handleLogin(username);
+      await userContext.handleLogin(username);
     } catch (err) {
       const errors: RegisterFields = err.response.data.errors;
       console.log(errors);
