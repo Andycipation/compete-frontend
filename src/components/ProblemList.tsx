@@ -1,4 +1,5 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 import {
   Card,
   createStyles,
@@ -11,16 +12,13 @@ import {
 } from "@material-ui/core";
 import { ProblemForUser } from "../common/interfaces/data";
 import { lightGreen } from "@material-ui/core/colors";
+import TierBadge from "./TierBadge";
 
 interface Props {
   heading: string;
   problems: ProblemForUser[];
   showTiers?: boolean;
 }
-
-export const tierBadgeUrl = (tier: string | number): string => {
-  return `https://d2gd6pc034wcta.cloudfront.net/tier/${tier}.svg`;
-};
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -42,6 +40,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 const ProblemList: React.FC<Props> = (props: Props) => {
+  const history = useHistory();
   const classes = useStyles();
 
   return (
@@ -59,18 +58,17 @@ const ProblemList: React.FC<Props> = (props: Props) => {
                 : classes.problemListItemUnsolved
             }
             button
-            component="a"
-            // below: forwarded to <a> tag
-            href={`https://www.acmicpc.net/problem/${problem.id}`}
-            target="_blank" // open a new tab
-            rel="noreferrer"
+            // component={Link}
+            // to={`/problem/${problem.id}`}
+            // component="a"
+            // // below: forwarded to <a> tag
+            // href={`https://www.acmicpc.net/problem/${problem.id}`}
+            // target="_blank" // open a new tab
+            // rel="noreferrer"
+            onClick={() => history.push(`/problem/${problem.id}`)}
           >
             {props.showTiers && (
-              <img
-                className={classes.tierBadge}
-                src={tierBadgeUrl(problem.tier)}
-                alt={`tier${problem.tier}`}
-              />
+              <TierBadge tier={problem.tier} className={classes.tierBadge} />
             )}
             <ListItemText>{problem.title}</ListItemText>
           </ListItem>

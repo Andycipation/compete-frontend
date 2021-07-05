@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { Typography } from "@material-ui/core";
 
 import axios from "./axiosConfig";
 import { AxiosResponse } from "axios";
@@ -18,6 +19,7 @@ import HomePage from "./pages/Home";
 import LoginPage from "./pages/Login";
 import LogoutPage from "./pages/Logout";
 import NotFoundPage from "./pages/NotFound";
+import ProblemPage from "./pages/Problem";
 import ProfilePage from "./pages/Profile";
 import RegisterPage from "./pages/Register";
 import UsersPage from "./pages/Users";
@@ -33,7 +35,6 @@ const App: React.FC = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setLoading(false);
     axios
       .post("/refresh-token")
       .then(async (res: AxiosResponse<RefreshTokenResponse>) => {
@@ -50,7 +51,11 @@ const App: React.FC = () => {
   }, [userContext]);
 
   if (loading) {
-    return <div>loading...</div>;
+    return (
+      <div>
+        <Typography variant="body1">loading...</Typography>
+      </div>
+    );
   }
 
   return (
@@ -64,14 +69,8 @@ const App: React.FC = () => {
             <UsersPage />
           </Route>
 
-          <Route path="/login" exact>
-            <LoginPage />
-          </Route>
-          <Route path="/logout" exact>
-            <LogoutPage />
-          </Route>
-          <Route path="/register" exact>
-            <RegisterPage />
+          <Route path="/problem/:id" exact>
+            <ProblemPage />
           </Route>
 
           <ProtectedRoute path="/user" exact>
@@ -87,6 +86,17 @@ const App: React.FC = () => {
 
           <Route path="/about">
             <AboutPage />
+          </Route>
+
+          {/* authentication */}
+          <Route path="/login" exact>
+            <LoginPage />
+          </Route>
+          <Route path="/logout" exact>
+            <LogoutPage />
+          </Route>
+          <Route path="/register" exact>
+            <RegisterPage />
           </Route>
 
           {/* 404 not found */}
