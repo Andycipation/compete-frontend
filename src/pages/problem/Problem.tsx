@@ -7,23 +7,28 @@ import { useParams } from "react-router-dom";
 import { useQuery } from "react-query";
 import { Typography } from "@material-ui/core";
 
-import htmlReactParser from "html-react-parser";
-import axios from "../axiosConfig";
+import ProblemSection from "./ProblemSection";
 
-import { FullProblem } from "../common/interfaces/data";
-import TierBadge from "../components/TierBadge";
+import axios from "../../axiosConfig";
 
-import PopoutLink from "../components/PopoutLink";
+import { FullProblem } from "../../common/interfaces/data";
+import TierBadge from "../../components/TierBadge";
+
+import PopoutLink from "../../components/PopoutLink";
 
 const bojProblemLink = (id: string) => {
   return `https://www.acmicpc.net/problem/${id}`;
 };
 
-interface Props {
+const bojSubmitLink = (id: string) => {
+  return `https://www.acmicpc.net/submit/${id}`;
+};
+
+interface ProblemPageProps {
   showTier?: boolean;
 }
 
-const ProblemPage: React.FC<Props> = (props: Props) => {
+const ProblemPage: React.FC<ProblemPageProps> = (props: ProblemPageProps) => {
   const { id } = useParams<{ id: string }>();
 
   const {
@@ -32,7 +37,6 @@ const ProblemPage: React.FC<Props> = (props: Props) => {
     isError,
   } = useQuery(["getProblem", id], async () => {
     const { data } = await axios.get<FullProblem>(`/problem/${id}`);
-    console.log(data);
     return data;
   });
 
@@ -59,13 +63,31 @@ const ProblemPage: React.FC<Props> = (props: Props) => {
       {props.showTier && <TierBadge tier={problem.tier} />}
       <Typography variant="h4">{problem.title}</Typography>
       <Typography variant="subtitle2">Problem {problem.id}</Typography>
+
+      {/* external links */}
       <Typography variant="body2">
-        <PopoutLink to={bojProblemLink(problem.id)}>external link</PopoutLink>
+        <PopoutLink to={bojProblemLink(problem.id)}>
+          View problem {problem.id} on BOJ
+        </PopoutLink>
       </Typography>
-      {/* <Typography variant="h5">Problem Statement</Typography> */}
-      <Typography variant="body1">
-        {htmlReactParser(problem.statementHtml)}
+      <Typography variant="body2">
+        <PopoutLink to={bojSubmitLink(problem.id)}>
+          Submit to problem {problem.id} on BOJ
+        </PopoutLink>
       </Typography>
+
+      <ProblemSection
+        heading="Problem Statement"
+        html={problem.statementHtml}
+      />
+      <ProblemSection
+        heading="Input Specification"
+        html={problem.inputSpecHtml}
+      />
+      <ProblemSection
+        heading="Output Specification"
+        html={problem.outputSpecHtml}
+      />
     </div>
   );
 };

@@ -19,7 +19,7 @@ import HomePage from "./pages/Home";
 import LoginPage from "./pages/Login";
 import LogoutPage from "./pages/Logout";
 import NotFoundPage from "./pages/NotFound";
-import ProblemPage from "./pages/Problem";
+import ProblemPage from "./pages/problem/Problem";
 import ProfilePage from "./pages/Profile";
 import RegisterPage from "./pages/Register";
 import UsersPage from "./pages/Users";
@@ -69,6 +69,7 @@ const App: React.FC = () => {
             <UsersPage />
           </Route>
 
+          {/* view problem */}
           <Route path="/problem/:id" exact>
             <ProblemPage />
           </Route>

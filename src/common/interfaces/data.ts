@@ -21,4 +21,6 @@ export type ProblemForUser = {
 
 export interface FullProblem extends ProblemMetadata {
   statementHtml: string; // use base64 encoding for compression?
+  inputSpecHtml: string;
+  outputSpecHtml: string;
 }

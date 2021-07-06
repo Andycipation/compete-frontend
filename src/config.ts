@@ -1,5 +1,6 @@
 /*
 Configuration information.
+
 Note: when `DOMAIN` expires, this whole thing probably has to be reconfigured
 since the backend is not able to set cookies on the frontend unless they are
 hosted from the same domain.
@@ -10,14 +11,11 @@ https://devcenter.heroku.com/articles/cookies-and-herokuapp-com)
 const DOMAIN = "andrewdong.me";
 
 const config = {
-  // cubers-backend Heroku project
+  // compete-backend Heroku project
   BACKEND_SERVER_URL:
     process.env.NODE_ENV == "production"
       ? `https://api.compete.${DOMAIN}`
       : "http://localhost:8080",
-
-  // how often to update timer
-  TIMER_INTERVAL_SIZE: 100,
 };
 
 export default config;
