@@ -1,4 +1,5 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 import {
   Card,
   List,
@@ -6,6 +7,7 @@ import {
   ListItemText,
   Typography,
 } from "@material-ui/core";
+
 import assert from "assert";
 
 import { useStyles } from "./styles";
@@ -20,6 +22,7 @@ interface Props {
 
 const ProblemList: React.FC<Props> = (props: Props) => {
   const classes = useStyles();
+  const history = useHistory();
 
   return (
     <Card className={classes.card} raised>
@@ -28,29 +31,31 @@ const ProblemList: React.FC<Props> = (props: Props) => {
       </Typography>
       <List>
         {props.problems.map(({ problem, solved }, index) => {
-          const id = problem.id;
-          const prefixMatch = id.match(/^[0-9]+/);
-          assert(prefixMatch);
-          const contestId = prefixMatch[0];
-          const problemIndex = id.substr(contestId.length);
-          // TODO: use this or contest link?
-          const link = `https://codeforces.com/problemset/problem/${contestId}/${problemIndex}`;
+          const listItemProps: any = {
+            className: solved
+              ? classes.problemListItemSolved
+              : classes.problemListItemUnsolved,
+            button: true,
+          };
+          if (problem.platform == "boj") {
+            listItemProps.onClick = () => {
+              history.push(`/problem/${problem.id}`);
+            };
+          } else {
+            const id = problem.id;
+            const prefixMatch = id.match(/^[0-9]+/);
+            assert(prefixMatch);
+            const contestId = prefixMatch[0];
+            const problemIndex = id.substr(contestId.length);
+            // TODO: use this or contest link?
+            const link = `https://codeforces.com/problemset/problem/${contestId}/${problemIndex}`;
+            listItemProps.component = "a";
+            listItemProps.href = link;
+            listItemProps.target = "_blank";
+            listItemProps.rel = "noreferrer";
+          }
           return (
-            <ListItem
-              key={index}
-              className={
-                solved
-                  ? classes.problemListItemSolved
-                  : classes.problemListItemUnsolved
-              }
-              button
-              // below: forwarded to <a> tag
-              component="a"
-              href={link}
-              target="_blank" // open a new tab
-              rel="noreferrer"
-              // onClick={() => history.push(`/problem/${problem.id}`)}
-            >
+            <ListItem key={index} {...listItemProps}>
               {props.renderDifficulty &&
                 props.renderDifficulty(problem.difficulty)}
               <ListItemText>{problem.title}</ListItemText>
