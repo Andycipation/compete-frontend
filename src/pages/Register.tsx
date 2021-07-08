@@ -20,18 +20,20 @@ const RegisterPage: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [bojId, setBojId] = useState("");
+  const [cfId, setCfId] = useState("");
 
   const [errors, setErrors] = useState<RegisterFields>({
     username: "",
     email: "",
     password: "",
     bojId: "",
+    cfId: "",
   });
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
     // it is okay to send passwords over HTTPS
-    const data: RegisterFields = { username, email, password, bojId };
+    const data: RegisterFields = { username, email, password, bojId, cfId };
     try {
       const res = await axios.post("/register", data);
       setAccessToken(res.data.accessToken);
@@ -67,7 +69,7 @@ const RegisterPage: React.FC = () => {
                   // variant="outlined"
                 />
               </Grid>
-              <Grid>
+              <Grid item>
                 <TextField
                   label="Email"
                   type="email"
@@ -78,7 +80,7 @@ const RegisterPage: React.FC = () => {
                   helperText={errors.email}
                 />
               </Grid>
-              <Grid>
+              <Grid item>
                 <TextField
                   label="Password"
                   type="password"
@@ -89,15 +91,26 @@ const RegisterPage: React.FC = () => {
                   helperText={errors.password}
                 />
               </Grid>
-              <Grid>
+              <Grid item>
                 <TextField
                   label="BOJ Handle"
                   type="text"
                   onChange={(e) => setBojId(e.target.value)}
-                  required
+                  // required
                   fullWidth
                   error={errors.bojId.length > 0}
                   helperText={errors.bojId}
+                />
+              </Grid>
+              <Grid item>
+                <TextField
+                  label="Codeforces Handle"
+                  type="text"
+                  onChange={(e) => setCfId(e.target.value)}
+                  // required
+                  fullWidth
+                  error={errors.cfId.length > 0}
+                  helperText={errors.cfId}
                 />
               </Grid>
             </Grid>
