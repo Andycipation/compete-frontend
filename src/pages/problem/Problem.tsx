@@ -12,7 +12,7 @@ import ProblemSection from "./ProblemSection";
 import axios from "../../axiosConfig";
 
 import { FullProblem } from "../../common/interfaces/data";
-import TierBadge from "../../components/TierBadge";
+import TierBadge from "../../components/boj/TierBadge";
 
 import PopoutLink from "../../components/PopoutLink";
 
@@ -36,7 +36,7 @@ const ProblemPage: React.FC<ProblemPageProps> = (props: ProblemPageProps) => {
     isLoading,
     isError,
   } = useQuery(["getProblem", id], async () => {
-    const { data } = await axios.get<FullProblem>(`/problem/${id}`);
+    const { data } = await axios.get<FullProblem>(`/boj/problem/${id}`);
     return data;
   });
 
@@ -60,7 +60,7 @@ const ProblemPage: React.FC<ProblemPageProps> = (props: ProblemPageProps) => {
 
   return (
     <div>
-      {props.showTier && <TierBadge tier={problem.tier} />}
+      {props.showTier && <TierBadge tier={problem.difficulty} />}
       <Typography variant="h4">{problem.title}</Typography>
       <Typography variant="subtitle2">Problem {problem.id}</Typography>
 
