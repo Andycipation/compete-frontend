@@ -6,6 +6,8 @@ import {
   ListItemText,
   Typography,
 } from "@material-ui/core";
+import assert from "assert";
+
 import { useStyles } from "./styles";
 import { ProblemForUser } from "../common/interfaces/data";
 // import { lightGreen } from "@material-ui/core/colors";
@@ -27,7 +29,9 @@ const ProblemList: React.FC<Props> = (props: Props) => {
       <List>
         {props.problems.map(({ problem, solved }, index) => {
           const id = problem.id;
-          const contestId = id.match(/^[0-9]+/)![0];
+          const prefixMatch = id.match(/^[0-9]+/);
+          assert(prefixMatch);
+          const contestId = prefixMatch[0];
           const problemIndex = id.substr(contestId.length);
           // TODO: use this or contest link?
           const link = `https://codeforces.com/problemset/problem/${contestId}/${problemIndex}`;
