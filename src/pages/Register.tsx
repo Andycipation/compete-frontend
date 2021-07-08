@@ -40,7 +40,6 @@ const RegisterPage: React.FC = () => {
       await userContext.handleLogin(username);
     } catch (err) {
       const errors: RegisterFields = err.response.data.errors;
-      console.log(errors);
       setErrors(errors);
     }
   };

@@ -4,7 +4,7 @@ import { Typography } from "@material-ui/core";
 import JsxParser from "react-jsx-parser";
 import "katex/dist/katex.min.css";
 import TeX from "@matejmazur/react-katex";
-import { parseHtmlAndMathjax } from "../../math/mathjaxParser";
+import { parseHtmlAndMathjax } from "../../mathjaxParser";
 
 // use this as a "middleman" for debugging purposes
 // note that mathjaxParser.ts replaces stuff with MyTeX, so

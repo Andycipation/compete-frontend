@@ -1,7 +1,11 @@
 import React, { createContext, ReactNode, useState } from "react";
+import { useQuery } from "react-query";
+import axios from "../axiosConfig";
 
 interface UserContextData {
   username: string;
+  bojId: string;
+  cfId: string;
   handleLogin: (username: string) => Promise<void>;
   handleLogout: () => Promise<void>;
 }
@@ -9,6 +13,8 @@ interface UserContextData {
 const UserContext = createContext<UserContextData>({
   // TODO: fix this "hack"? (is this even a hack?)
   username: "N/A",
+  bojId: "N/A",
+  cfId: "N/A",
   handleLogin: async () => {
     console.error("called handleLogin before init");
   },
@@ -21,8 +27,27 @@ interface Props {
   children: ReactNode;
 }
 
+const LOGGED_OUT_DATA = {
+  boj: { userId: "" },
+  cf: { userId: "" },
+};
+
 export const UserContextProvider: React.FC<Props> = (props: Props) => {
   const [username, setUsername] = useState("");
+
+  const { data: user } = useQuery(
+    ["user", username],
+    async () => {
+      if (username) {
+        const { data: user } = await axios.get(`/user/${username}`);
+        return user;
+      }
+      return LOGGED_OUT_DATA;
+    },
+    { initialData: LOGGED_OUT_DATA }
+  );
+
+  console.log(user);
 
   const handleLogin = async (username: string) => {
     // TODO: check lowercase username stuff
@@ -37,6 +62,8 @@ export const UserContextProvider: React.FC<Props> = (props: Props) => {
 
   const context = {
     username,
+    bojId: user.boj.userId,
+    cfId: user.cf.userId,
     handleLogin,
     handleLogout,
   };

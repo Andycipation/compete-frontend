@@ -17,7 +17,7 @@ export const useStyles = makeStyles((theme: Theme) =>
       padding: theme.spacing(0.1, 2),
       backgroundColor: lightGreen[500],
     },
-    problemList: {
+    problemListContainer: {
       margin: theme.spacing(3, 1),
     },
   })

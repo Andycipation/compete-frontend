@@ -4,7 +4,7 @@ import { Grid, Typography } from "@material-ui/core";
 import axios from "../../axiosConfig";
 import { useQuery } from "react-query";
 
-import { ProblemForUser } from "../../common/interfaces/data";
+import { ProblemSets } from "../../common/interfaces/data";
 
 import ProblemList from "../ProblemList";
 
@@ -14,15 +14,14 @@ interface Props {
 
 const CodeforcesSets: React.FC<Props> = ({ username }: Props) => {
   const {
-    data: contests,
+    data: problems,
     isLoading,
     isError,
   } = useQuery(["getCfRecs", username], async () => {
     if (username) {
-      const { data } = await axios.get<(readonly [string, ProblemForUser[]])[]>(
-        "/cf/recommendations",
-        { params: { username } }
-      );
+      const { data } = await axios.get<ProblemSets>("/cf/recs", {
+        params: { username },
+      });
       return data;
     }
   });
@@ -37,7 +36,7 @@ const CodeforcesSets: React.FC<Props> = ({ username }: Props) => {
     );
   }
 
-  if (isLoading || !contests) {
+  if (isLoading || !problems) {
     return <Typography>loading Codeforces problems...</Typography>;
   }
 
@@ -47,7 +46,7 @@ const CodeforcesSets: React.FC<Props> = ({ username }: Props) => {
         Your Codeforces problem lists for {dateString}
       </Typography>
       <Grid container direction="row" spacing={3}>
-        {contests.map(([tag, problems], index) => (
+        {problems.map(([tag, problems], index) => (
           <Grid key={index} item xs={12} sm={6} lg={3}>
             <ProblemList
               heading={tag}

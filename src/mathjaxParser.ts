@@ -1,6 +1,8 @@
 /*
 Inspiration from
 https://www.tsmean.com/articles/math/mathjax-parser-for-html-strings/
+
+Very very very hacky. Probably will fail very fast.
 */
 
 import assert from "assert";

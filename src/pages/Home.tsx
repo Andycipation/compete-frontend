@@ -4,21 +4,31 @@ import { Container, Typography } from "@material-ui/core";
 
 import UserContext from "../store/userContext";
 
-import BojProblemSets from "../components/boj/BojProblemSets";
+import BojSets from "../components/boj/BojSets";
 import CodeforcesSets from "../components/cf/CodeforcesSets";
 import { useStyles } from "../components/styles";
 
 const HomePage: React.FC = () => {
-  const { username } = useContext(UserContext);
+  const { username, bojId, cfId } = useContext(UserContext);
   const classes = useStyles();
 
   const loggedInJsx = (
     <div>
-      <Container className={classes.problemList}>
-        <BojProblemSets username={username} />
+      <Container className={classes.problemListContainer}>
+        {bojId ? (
+          <BojSets username={username} />
+        ) : (
+          <Typography>{username}, you do not have a BOJ handle set.</Typography>
+        )}
       </Container>
-      <Container className={classes.problemList}>
-        <CodeforcesSets username={username} />
+      <Container className={classes.problemListContainer}>
+        {cfId ? (
+          <CodeforcesSets username={username} />
+        ) : (
+          <Typography>
+            {username}, you do not have a Codeforces handle set.
+          </Typography>
+        )}
       </Container>
     </div>
   );

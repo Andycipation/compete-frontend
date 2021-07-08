@@ -4,6 +4,8 @@ import { Typography } from "@material-ui/core";
 import PopoutLink from "../components/PopoutLink";
 
 const AboutPage: React.FC = () => {
+  // TODO: keep up-to-date
+
   return (
     <div>
       <Typography variant="h5" align="center">

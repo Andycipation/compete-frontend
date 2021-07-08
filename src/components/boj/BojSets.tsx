@@ -4,7 +4,7 @@ import { Grid, Typography } from "@material-ui/core";
 import axios from "../../axiosConfig";
 import { useQuery } from "react-query";
 
-import { ProblemForUser } from "../../common/interfaces/data";
+import { ProblemSets } from "../../common/interfaces/data";
 import ProblemList from "../ProblemList";
 import TierBadge from "./TierBadge";
 import { useStyles } from "../styles";
@@ -13,20 +13,19 @@ interface Props {
   username: string;
 }
 
-const BojProblemSets: React.FC<Props> = ({ username }: Props) => {
+const BojSets: React.FC<Props> = ({ username }: Props) => {
   const classes = useStyles();
 
   const {
     data: problemSets,
+    error,
     isLoading,
     isError,
-  } = useQuery(["getBojProblemSets", username], async () => {
+  } = useQuery(["getBojRecs", username], async () => {
     if (username) {
-      const { data } = await axios.get<(readonly [string, ProblemForUser[]])[]>(
-        "/boj/recommendations",
-        { params: { username } }
-      );
-      console.log(data);
+      const { data } = await axios.get<ProblemSets>("/boj/recs", {
+        params: { username },
+      });
       return data;
     }
   });
@@ -34,6 +33,7 @@ const BojProblemSets: React.FC<Props> = ({ username }: Props) => {
   const dateString = new Date(Date.now()).toLocaleDateString();
 
   if (isError) {
+    console.log("error:", error);
     return (
       <Typography>
         An error occurred and the problems cannot be fetched at this time.
@@ -68,4 +68,4 @@ const BojProblemSets: React.FC<Props> = ({ username }: Props) => {
   );
 };
 
-export default BojProblemSets;
+export default BojSets;
