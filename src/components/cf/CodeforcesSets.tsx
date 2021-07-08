@@ -1,5 +1,6 @@
 import React from "react";
 import { Grid, Typography } from "@material-ui/core";
+import { useStyles } from "../styles";
 
 import axios from "../../axiosConfig";
 import { useQuery } from "react-query";
@@ -12,7 +13,47 @@ interface Props {
   username: string;
 }
 
+// thanks to William Li for the color palette
+const GREY = "#a3a3a3";
+const GM_RED = "#fc3535";
+const COLORS: [number, string][] = [
+  // if >= t[0], then use the color t[1]
+  [-1e9, GREY],
+  [1200, "#00d166"],
+  [1400, "#59dfdd"],
+  [1600, "#737BDF"],
+  [1900, "#B971ED"],
+  [2100, "#ffcc87"],
+  [2300, "#fa7b2d"],
+  [2400, "#e76969"],
+  [2600, GM_RED],
+];
+
+const coloredRatingHtml = (rating: number) => {
+  const s = rating.toString();
+  if (rating >= 3000) {
+    return (
+      <span>
+        <span color="black">{s[0]}</span>
+        <span color={GM_RED}>{s.substr(1)}</span>
+      </span>
+    );
+  }
+
+  let color = GREY;
+  for (let i = COLORS.length - 1; i >= 0; i--) {
+    const [r, c] = COLORS[i];
+    if (rating >= r) {
+      color = c;
+      break;
+    }
+  }
+  return <span style={{ color }}>{rating}</span>;
+};
+
 const CodeforcesSets: React.FC<Props> = ({ username }: Props) => {
+  const classes = useStyles();
+
   const {
     data: problems,
     isLoading,
@@ -51,9 +92,11 @@ const CodeforcesSets: React.FC<Props> = ({ username }: Props) => {
             <ProblemList
               heading={tag}
               problems={problems}
-              renderDifficulty={(d) => {
-                return <span>{d}</span>;
-              }}
+              renderDifficulty={(d) => (
+                <Typography className={classes.cfRating}>
+                  {coloredRatingHtml(d)}
+                </Typography>
+              )}
             />
           </Grid>
         ))}

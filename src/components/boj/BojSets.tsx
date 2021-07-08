@@ -58,7 +58,7 @@ const BojSets: React.FC<Props> = ({ username }: Props) => {
               problems={problems}
               // TODO: toggle show/not show?
               renderDifficulty={(d) => {
-                return <TierBadge className={classes.tierBadge} tier={d} />;
+                return <TierBadge className={classes.bojTierBadge} tier={d} />;
               }}
             />
           </Grid>

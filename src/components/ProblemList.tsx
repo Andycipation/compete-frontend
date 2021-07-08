@@ -26,7 +26,14 @@ const ProblemList: React.FC<Props> = (props: Props) => {
 
   return (
     <Card className={classes.card} raised>
-      <Typography variant="h6" align="center">
+      <Typography
+        variant="h6"
+        align="center"
+        // style={{
+        //   marginBottom: 0,
+        //   paddingBottom: 0,
+        // }}
+      >
         {props.heading}
       </Typography>
       <List>

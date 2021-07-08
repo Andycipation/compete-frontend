@@ -6,8 +6,11 @@ export const useStyles = makeStyles((theme: Theme) =>
     card: {
       borderRadius: theme.spacing(1),
     },
-    tierBadge: {
+    bojTierBadge: {
       height: "15px",
+      marginRight: theme.spacing(1),
+    },
+    cfRating: {
       marginRight: theme.spacing(1),
     },
     problemListItemUnsolved: {
