@@ -3,7 +3,7 @@ Not used yet.
 */
 
 import React from "react";
-import { useParams } from "react-router-dom";
+import { Link as RouterLink, useParams } from "react-router-dom";
 
 import { Typography } from "@material-ui/core";
 
@@ -17,7 +17,10 @@ const ProfilePage: React.FC<Props> = (props: Props) => {
   if (props.mine) {
     return (
       <div>
-        <Typography>My Account</Typography>
+        <Typography variant="h5">My Account</Typography>
+        <Typography variant="body1">
+          <RouterLink to="/edit/profile">Edit profile</RouterLink>
+        </Typography>
       </div>
     );
   }

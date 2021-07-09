@@ -40,14 +40,13 @@ export const UserContextProvider: React.FC<Props> = (props: Props) => {
     async () => {
       if (username) {
         const { data: user } = await axios.get(`/user/${username}`);
+        console.log(username, user);
         return user;
       }
       return LOGGED_OUT_DATA;
     },
     { initialData: LOGGED_OUT_DATA }
   );
-
-  console.log(user);
 
   const handleLogin = async (username: string) => {
     // TODO: check lowercase username stuff

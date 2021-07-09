@@ -15,6 +15,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import Layout from "./layout/Layout";
 
 import AboutPage from "./pages/About";
+import EditProfilePage from "./pages/EditProfile";
 import HomePage from "./pages/Home";
 import LoginPage from "./pages/Login";
 import LogoutPage from "./pages/Logout";
@@ -81,11 +82,11 @@ const App: React.FC = () => {
             <ProfilePage />
           </Route>
 
-          <ProtectedRoute path="/edit-profile" exact>
-            {/* edit profile page */}
+          <ProtectedRoute path="/edit/profile" exact>
+            <EditProfilePage />
           </ProtectedRoute>
 
-          <Route path="/about">
+          <Route path="/about" exact>
             <AboutPage />
           </Route>
 

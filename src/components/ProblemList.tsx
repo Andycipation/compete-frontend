@@ -12,7 +12,16 @@ import assert from "assert";
 
 import { useStyles } from "./styles";
 import { ProblemForUser } from "../common/interfaces/data";
-// import { lightGreen } from "@material-ui/core/colors";
+
+const cfProblemLink = (problemId: string): string => {
+  const id = problemId;
+  const prefixMatch = id.match(/^[0-9]+/);
+  assert(prefixMatch);
+  const contestId = prefixMatch[0];
+  const problemIndex = id.substr(contestId.length);
+  // TODO: use this or contest link?
+  return `https://codeforces.com/problemset/problem/${contestId}/${problemIndex}`;
+};
 
 interface Props {
   heading: string;
@@ -26,14 +35,7 @@ const ProblemList: React.FC<Props> = (props: Props) => {
 
   return (
     <Card className={classes.card} raised>
-      <Typography
-        variant="h6"
-        align="center"
-        // style={{
-        //   marginBottom: 0,
-        //   paddingBottom: 0,
-        // }}
-      >
+      <Typography variant="h6" align="center">
         {props.heading}
       </Typography>
       <List>
@@ -49,13 +51,7 @@ const ProblemList: React.FC<Props> = (props: Props) => {
               history.push(`/problem/${problem.id}`);
             };
           } else {
-            const id = problem.id;
-            const prefixMatch = id.match(/^[0-9]+/);
-            assert(prefixMatch);
-            const contestId = prefixMatch[0];
-            const problemIndex = id.substr(contestId.length);
-            // TODO: use this or contest link?
-            const link = `https://codeforces.com/problemset/problem/${contestId}/${problemIndex}`;
+            const link = cfProblemLink(problem.id);
             listItemProps.component = "a";
             listItemProps.href = link;
             listItemProps.target = "_blank";
@@ -65,7 +61,9 @@ const ProblemList: React.FC<Props> = (props: Props) => {
             <ListItem key={index} {...listItemProps}>
               {props.renderDifficulty &&
                 props.renderDifficulty(problem.difficulty)}
-              <ListItemText>{problem.title}</ListItemText>
+              <ListItemText>
+                <Typography noWrap>{problem.title}</Typography>
+              </ListItemText>
             </ListItem>
           );
         })}
