@@ -40,7 +40,7 @@ export const UserContextProvider: React.FC<Props> = (props: Props) => {
     async () => {
       if (username) {
         const { data: user } = await axios.get(`/user/${username}`);
-        console.log(username, user);
+        // console.log(username, user);
         return user;
       }
       return LOGGED_OUT_DATA;

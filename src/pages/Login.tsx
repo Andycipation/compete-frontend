@@ -42,6 +42,7 @@ const LoginPage: React.FC = () => {
     try {
       const res = await axios.post("/login", data);
       setAccessToken(res.data.accessToken);
+      console.log(res.data);
       await userContext.handleLogin(username);
     } catch (err) {
       const errors: RegisterFields = err.response.data.errors;
