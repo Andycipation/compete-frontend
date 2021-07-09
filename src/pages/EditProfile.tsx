@@ -17,6 +17,7 @@ import {
 import UserContext from "../store/userContext";
 import { UpdateFields } from "../common/interfaces/requests";
 import { useFormStyles } from "./formStyles";
+import { getAccessToken } from "../store/accessToken";
 
 const EditProfilePage: React.FC = () => {
   const history = useHistory();
@@ -46,11 +47,15 @@ const EditProfilePage: React.FC = () => {
     };
     try {
       const username = userContext.username;
-      await axios.put(`/user-info/${username}`, data);
+      await axios.put("/user-info", {
+        accessToken: getAccessToken(),
+        ...data,
+      });
       await userContext.handleLogout();
       await userContext.handleLogin(username);
       history.push("/");
     } catch (err) {
+      console.log(err.response.status);
       const errors: UpdateFields = err.response.data.errors;
       setErrors(errors);
       setSubmitted(false);
