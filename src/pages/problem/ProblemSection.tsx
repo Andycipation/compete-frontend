@@ -17,7 +17,7 @@ const MyTeX: React.FC = (props) => {
 
 interface ProblemSectionProps {
   heading: string;
-  html: string;
+  htmlWithMathjax: string;
 }
 
 const ProblemSection: React.FC<ProblemSectionProps> = (
@@ -31,7 +31,7 @@ const ProblemSection: React.FC<ProblemSectionProps> = (
       <Typography component="div" variant="body1">
         <JsxParser
           components={{ MyTeX }}
-          jsx={parseHtmlAndMathjax(props.html)}
+          jsx={parseHtmlAndMathjax(props.htmlWithMathjax)}
           autoCloseVoidElements
         />
       </Typography>

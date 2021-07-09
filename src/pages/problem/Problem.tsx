@@ -5,7 +5,7 @@ Not used yet.
 import React from "react";
 import { useParams } from "react-router-dom";
 import { useQuery } from "react-query";
-import { Typography } from "@material-ui/core";
+import { Container, Typography } from "@material-ui/core";
 
 import ProblemSection from "./ProblemSection";
 
@@ -59,7 +59,7 @@ const ProblemPage: React.FC<ProblemPageProps> = (props: ProblemPageProps) => {
   }
 
   return (
-    <div>
+    <Container>
       {props.showTier && <TierBadge tier={problem.difficulty} />}
       <Typography variant="h4">{problem.title}</Typography>
       <Typography variant="subtitle2">Problem {problem.id}</Typography>
@@ -78,17 +78,17 @@ const ProblemPage: React.FC<ProblemPageProps> = (props: ProblemPageProps) => {
 
       <ProblemSection
         heading="Problem Statement"
-        html={problem.statementHtml}
+        htmlWithMathjax={problem.statementHtml}
       />
       <ProblemSection
         heading="Input Specification"
-        html={problem.inputSpecHtml}
+        htmlWithMathjax={problem.inputSpecHtml}
       />
       <ProblemSection
         heading="Output Specification"
-        html={problem.outputSpecHtml}
+        htmlWithMathjax={problem.outputSpecHtml}
       />
-    </div>
+    </Container>
   );
 };
 
