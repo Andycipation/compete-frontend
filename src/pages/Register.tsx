@@ -87,6 +87,8 @@ const RegisterPage: React.FC = () => {
           error={errors.password.length > 0}
           helperText={errors.password}
         />
+        <FormHelperText>We will never store your password.</FormHelperText>
+
         <TextField
           className={classes.textInputField}
           label="BOJ Handle"
@@ -107,6 +109,10 @@ const RegisterPage: React.FC = () => {
           error={errors.cfId.length > 0}
           helperText={errors.cfId}
         />
+        <FormHelperText>
+          You can set and modify your handles later.
+        </FormHelperText>
+
         <Box marginTop={2}>
           {/* Box uses theme.spacing? */}
           <Button type="submit" onClick={handleSubmit}>
@@ -119,7 +125,6 @@ const RegisterPage: React.FC = () => {
             Already have an account? <Link to="/login">Sign in now.</Link>
           </Typography>
         </div>
-        <FormHelperText>We will never store your password.</FormHelperText>
         {/* <FormHelperText>
           To use this tool, you need an account on{" "}
           <a href="https://www.acmicpc.net/">Baekjoon Online Judge</a>.
