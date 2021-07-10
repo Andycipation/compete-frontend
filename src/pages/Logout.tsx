@@ -1,25 +1,27 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { useQuery } from "react-query";
 import { Typography } from "@material-ui/core";
+import assert from "assert";
 import axios from "../axiosConfig";
 
 import { getAccessToken, setAccessToken } from "../store/accessToken";
 import UserContext from "../store/userContext";
-import assert from "assert";
 
 const LogoutPage: React.FC = () => {
   const userContext = useContext(UserContext);
 
-  useEffect(() => {
-    if (userContext.username) {
-      const accessToken = getAccessToken();
-      assert(accessToken);
-      axios.post("/logout", { accessToken }).then(async () => {
-        setAccessToken("");
-        await userContext.handleLogout();
-      });
-    }
-  }, [userContext]);
+  const { isLoading } = useQuery(["logout"], async () => {
+    const accessToken = getAccessToken();
+    assert(accessToken);
+    await axios.post("/logout", { accessToken });
+    setAccessToken("");
+    await userContext.handleLogout();
+  });
+
+  if (isLoading) {
+    return <Typography>logging out...</Typography>;
+  }
 
   return (
     <div>

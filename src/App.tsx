@@ -1,11 +1,11 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { Typography } from "@material-ui/core";
 
 import axios from "./axiosConfig";
-import { AxiosResponse } from "axios";
 import jwt from "jsonwebtoken";
 
+import { useQuery } from "react-query";
 import UserContext from "./store/userContext";
 import { RefreshTokenResponse } from "./common/interfaces/requests";
 import { setAccessToken } from "./store/accessToken";
@@ -34,30 +34,24 @@ interface AccessTokenPayload {
 
 const App: React.FC = () => {
   const userContext = useContext(UserContext);
-  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    axios
-      .post("/refresh-token")
-      .then(async (res: AxiosResponse<RefreshTokenResponse>) => {
-        // TODO: having "ok" is kind of redundant?
-        const { ok, accessToken } = res.data;
-        if (ok) {
-          setAccessToken(accessToken);
-          const payload = jwt.decode(accessToken) as AccessTokenPayload;
-          await userContext.handleLogin(payload.username);
-        }
-        // TODO: wait for userContext to finish loading?
-        setLoading(false);
-      });
-  }, [userContext]);
+  const { isLoading, isError } = useQuery(["refreshToken"], async () => {
+    const res = await axios.post<RefreshTokenResponse>("/refresh-token");
+    const { ok, accessToken } = res.data;
+    if (ok) {
+      setAccessToken(accessToken);
+      const payload = jwt.decode(accessToken) as AccessTokenPayload;
+      await userContext.handleLogin(payload.username);
+    }
+    // TODO: wait for userContext to finish loading?
+  });
 
-  if (loading) {
-    return (
-      <div>
-        <Typography variant="body1">loading...</Typography>
-      </div>
-    );
+  if (isLoading) {
+    return <Typography variant="body1">loading...</Typography>;
+  }
+
+  if (isError) {
+    return <Typography variant="body1">An error occured.</Typography>;
   }
 
   return (
@@ -76,7 +70,7 @@ const App: React.FC = () => {
             <ProblemPage />
           </Route>
 
-          <ProtectedRoute path="/user" exact>
+          <ProtectedRoute path="/user">
             <MyProfilePage />
           </ProtectedRoute>
           <Route path="/user/:username" exact>

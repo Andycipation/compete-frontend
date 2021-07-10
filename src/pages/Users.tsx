@@ -4,7 +4,7 @@ import axios from "../axiosConfig";
 
 import { Container, List, ListItem, Typography } from "@material-ui/core";
 import { useQuery } from "react-query";
-import { User } from "../common/interfaces/data";
+import { User } from "../interfaces/User";
 
 const UsersPage: React.FC = () => {
   const history = useHistory();

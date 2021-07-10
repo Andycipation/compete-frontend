@@ -3,18 +3,42 @@ Not used yet.
 */
 
 import React from "react";
-import { useParams } from "react-router-dom";
 import { Container, Typography } from "@material-ui/core";
+import axios from "../../axiosConfig";
 
-import ProfileInfo from "./ProfileInfo";
+import ProfileInfo from "../../components/ProfileInfo";
+import { User } from "../../interfaces/User";
+import { useParams } from "react-router-dom";
+import { useQuery } from "react-query";
 
 const OtherProfilePage: React.FC = () => {
   const { username } = useParams<{ username: string }>();
 
+  const {
+    isLoading,
+    isError,
+    data: user,
+  } = useQuery(["getUserData", username], async () => {
+    const res = await axios.get<User>(`/user/${username}`);
+    return res.data;
+  });
+
+  if (!user || isLoading) {
+    return <Typography>loading profile...</Typography>;
+  }
+
+  if (isError) {
+    return (
+      <Typography>
+        The user <strong>{username}</strong> cannot be loaded at this time.
+      </Typography>
+    );
+  }
+
   return (
     <Container>
-      <Typography variant="h5">{username}&apos;s Account</Typography>
-      <ProfileInfo username={username} />
+      <Typography variant="h5">{username}&apos;s Profile</Typography>
+      <ProfileInfo user={user} />
     </Container>
   );
 };

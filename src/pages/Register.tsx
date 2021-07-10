@@ -47,7 +47,7 @@ const RegisterPage: React.FC = () => {
     }
   };
 
-  if (userContext.username) {
+  if (userContext.user.username) {
     return <Redirect to="/" />;
   }
 

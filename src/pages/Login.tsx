@@ -49,7 +49,7 @@ const LoginPage: React.FC = () => {
       setErrors(errors);
     }
   };
-  if (userContext.username) {
+  if (userContext.user.username) {
     // go to next if exists; else, return home
     return <Redirect to={parsedQuery.next ?? "/"} />;
   }

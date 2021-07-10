@@ -24,8 +24,8 @@ const EditProfilePage: React.FC = () => {
   const userContext = useContext(UserContext);
   const classes = useFormStyles();
 
-  const [bojId, setBojId] = useState(userContext.bojId);
-  const [cfId, setCfId] = useState(userContext.cfId);
+  const [bojId, setBojId] = useState(userContext.user.boj.userId);
+  const [cfId, setCfId] = useState(userContext.user.cf.userId);
 
   const [submitted, setSubmitted] = useState(false);
 
@@ -46,7 +46,7 @@ const EditProfilePage: React.FC = () => {
       cfId,
     };
     try {
-      const username = userContext.username;
+      const username = userContext.user.username;
       await axios.put("/user-info", {
         accessToken: getAccessToken(),
         ...data,
@@ -62,25 +62,27 @@ const EditProfilePage: React.FC = () => {
     }
   };
 
-  if (!userContext.username) {
+  if (!userContext.user.username) {
     // something went very wrong with ProtectedRoute lol
     return <Redirect to="/" />;
   }
 
   return (
     <Container maxWidth="xs">
-      <Typography variant="h5">Edit Profile: {userContext.username}</Typography>
+      <Typography variant="h5">
+        Edit Profile: {userContext.user.username}
+      </Typography>
       <Typography variant="body2">
         Note that these handles are for tracking which problems you have solved;
         the recommendations are linked to your Compete account with username{" "}
-        {userContext.username}.
+        {userContext.user.username}.
       </Typography>
       <form onSubmit={handleSubmit}>
         <TextField
           className={classes.textInputField}
           label="BOJ Handle"
           type="text"
-          defaultValue={userContext.bojId}
+          defaultValue={userContext.user.boj.userId}
           onChange={(e) => setBojId(e.target.value)}
           // required
           fullWidth
@@ -91,7 +93,7 @@ const EditProfilePage: React.FC = () => {
           className={classes.textInputField}
           label="Codeforces Handle"
           type="text"
-          defaultValue={userContext.cfId}
+          defaultValue={userContext.user.cf.userId}
           onChange={(e) => setCfId(e.target.value)}
           // required
           fullWidth

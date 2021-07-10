@@ -14,7 +14,7 @@ import UserContext from "../store/userContext";
 import classes from "./Navigation.module.css";
 
 const Navigation: React.FC = () => {
-  const userContext = useContext(UserContext);
+  const { user } = useContext(UserContext);
   const history = useHistory();
 
   const loggedOutJsx = (
@@ -45,7 +45,7 @@ const Navigation: React.FC = () => {
       <Typography>
         Welcome,{" "}
         <MaterialLink component={RouterLink} to="/user" color="inherit">
-          <strong>{userContext.username}</strong>
+          <strong>{user.username}</strong>
         </MaterialLink>
         .
       </Typography>
@@ -99,7 +99,7 @@ const Navigation: React.FC = () => {
           {/* HACK: align the rest to the right */}
           <Box marginLeft="auto" />
 
-          {userContext.username == "" ? loggedOutJsx : loggedInJsx}
+          {user.username ? loggedInJsx : loggedOutJsx}
         </Toolbar>
       </AppBar>
     </div>

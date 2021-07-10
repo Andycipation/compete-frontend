@@ -9,7 +9,13 @@ import CodeforcesSets from "../components/cf/CodeforcesSets";
 import { useStyles } from "../components/styles";
 
 const HomePage: React.FC = () => {
-  const { username, bojId, cfId } = useContext(UserContext);
+  const {
+    user: {
+      username,
+      boj: { userId: bojId },
+      cf: { userId: cfId },
+    },
+  } = useContext(UserContext);
   const classes = useStyles();
 
   const loggedInJsx = (
