@@ -25,7 +25,7 @@ const ProblemSection: React.FC<ProblemSectionProps> = (
 ) => {
   return (
     <div>
-      <Typography variant="h5">{props.heading}</Typography>
+      <Typography variant="h1">{props.heading}</Typography>
       {/* use <div> as the root element to avoid an error where a <p> is nested
       inside of the root <p> tag */}
       <Typography component="div" variant="body1">

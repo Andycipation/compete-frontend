@@ -14,7 +14,7 @@ import { LoginRequest, RegisterFields } from "../common/interfaces/requests";
 
 import UserContext from "../store/userContext";
 import { setAccessToken } from "../store/accessToken";
-import { useFormStyles } from "./formStyles";
+import { useFormStyles } from "../ui/formStyles";
 
 interface QueryString {
   next?: string;
@@ -56,7 +56,7 @@ const LoginPage: React.FC = () => {
 
   return (
     <Container maxWidth="xs">
-      <Typography variant="h5">Sign in to Compete</Typography>
+      <Typography variant="h1">Sign in to Compete</Typography>
       <form onSubmit={handleSubmit}>
         <TextField
           className={classes.textInputField}

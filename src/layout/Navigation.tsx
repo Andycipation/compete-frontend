@@ -14,7 +14,7 @@ import UserContext from "../store/userContext";
 import classes from "./Navigation.module.css";
 
 const Navigation: React.FC = () => {
-  const { user } = useContext(UserContext);
+  const { isLoading, user } = useContext(UserContext);
   const history = useHistory();
 
   const loggedOutJsx = (
@@ -60,6 +60,10 @@ const Navigation: React.FC = () => {
       </Box>
     </>
   );
+
+  if (isLoading) {
+    return <Typography>loading...</Typography>;
+  }
 
   return (
     <div className={classes.root}>

@@ -83,7 +83,7 @@ const CodeforcesSets: React.FC<Props> = ({ username }: Props) => {
 
   return (
     <div>
-      <Typography variant="h5">
+      <Typography variant="h2">
         Your Codeforces problem lists for {dateString}
       </Typography>
       <Grid container direction="row" spacing={3}>

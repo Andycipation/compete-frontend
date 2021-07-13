@@ -16,7 +16,7 @@ import {
 
 import UserContext from "../store/userContext";
 import { UpdateFields } from "../common/interfaces/requests";
-import { useFormStyles } from "./formStyles";
+import { useFormStyles } from "../ui/formStyles";
 import { getAccessToken } from "../store/accessToken";
 
 const EditProfilePage: React.FC = () => {
@@ -62,6 +62,10 @@ const EditProfilePage: React.FC = () => {
     }
   };
 
+  if (userContext.isLoading) {
+    return <Typography>loading...</Typography>;
+  }
+
   if (!userContext.user.username) {
     // something went very wrong with ProtectedRoute lol
     return <Redirect to="/" />;
@@ -69,18 +73,18 @@ const EditProfilePage: React.FC = () => {
 
   return (
     <Container maxWidth="xs">
-      <Typography variant="h5">
+      <Typography variant="h1">
         Edit Profile: {userContext.user.username}
       </Typography>
       <Typography variant="body2">
-        Note that these handles are for tracking which problems you have solved;
-        the recommendations are linked to your Compete account with username{" "}
-        {userContext.user.username}.
+        Note that these usernames are for tracking which problems you have
+        solved; the recommendations are linked to your Compete account with
+        username <strong>{userContext.user.username}</strong>.
       </Typography>
       <form onSubmit={handleSubmit}>
         <TextField
           className={classes.textInputField}
-          label="BOJ Handle"
+          label="Baekjoon Online Judge Username"
           type="text"
           defaultValue={userContext.user.boj.userId}
           onChange={(e) => setBojId(e.target.value)}
@@ -91,7 +95,7 @@ const EditProfilePage: React.FC = () => {
         />
         <TextField
           className={classes.textInputField}
-          label="Codeforces Handle"
+          label="Codeforces Username"
           type="text"
           defaultValue={userContext.user.cf.userId}
           onChange={(e) => setCfId(e.target.value)}

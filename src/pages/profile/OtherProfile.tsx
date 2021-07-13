@@ -37,7 +37,7 @@ const OtherProfilePage: React.FC = () => {
 
   return (
     <Container>
-      <Typography variant="h5">{username}&apos;s Profile</Typography>
+      <Typography variant="h1">{username}&apos;s Profile</Typography>
       <ProfileInfo user={user} />
     </Container>
   );

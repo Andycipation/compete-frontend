@@ -21,7 +21,7 @@ const UsersPage: React.FC = () => {
   // TODO: implement
   return (
     <Container>
-      <Typography variant="h5">Users</Typography>
+      <Typography variant="h1">Users</Typography>
       <List>
         {users.map((user: User) => {
           return (

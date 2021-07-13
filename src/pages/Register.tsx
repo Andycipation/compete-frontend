@@ -8,15 +8,18 @@ import {
   FormHelperText,
   TextField,
   Typography,
+  useTheme,
 } from "@material-ui/core";
 
 import UserContext from "../store/userContext";
 import { setAccessToken } from "../store/accessToken";
 import { RegisterFields } from "../common/interfaces/requests";
-import { useFormStyles } from "./formStyles";
+import { useFormStyles } from "../ui/formStyles";
+import PopoutLink from "../components/PopoutLink";
 
 const RegisterPage: React.FC = () => {
   const userContext = useContext(UserContext);
+  const theme = useTheme();
   const classes = useFormStyles();
 
   const [username, setUsername] = useState("");
@@ -53,7 +56,11 @@ const RegisterPage: React.FC = () => {
 
   return (
     <Container maxWidth="xs">
-      <Typography variant="h5">Sign up for Compete</Typography>
+      <Typography variant="h1">Sign up for Compete</Typography>
+      <Typography variant="body2">
+        Already have an account? <Link to="/login">Sign in now.</Link>
+      </Typography>
+
       <form onSubmit={handleSubmit}>
         <TextField
           className={classes.textInputField}
@@ -88,10 +95,19 @@ const RegisterPage: React.FC = () => {
           helperText={errors.password}
         />
         <FormHelperText>We will never store your password.</FormHelperText>
+        {/* TODO: add a "confirm password" field? */}
 
+        <Typography variant="h3" style={{ marginTop: theme.spacing(5) }}>
+          Usernames
+        </Typography>
+        <Typography variant="body2">
+          You can set and modify your usernames later.
+        </Typography>
+
+        {/* Baekjoon Online Judge */}
         <TextField
           className={classes.textInputField}
-          label="BOJ Handle"
+          label="Baekjoon Online Judge Username"
           type="text"
           onChange={(e) => setBojId(e.target.value)}
           // required
@@ -99,9 +115,14 @@ const RegisterPage: React.FC = () => {
           error={errors.bojId.length > 0}
           helperText={errors.bojId}
         />
+        <FormHelperText>
+          You can register a Baekjoon Online Judge account{" "}
+          <PopoutLink to="https://www.acmicpc.net/register">here</PopoutLink>.
+        </FormHelperText>
+
         <TextField
           className={classes.textInputField}
-          label="Codeforces Handle"
+          label="Codeforces Username"
           type="text"
           onChange={(e) => setCfId(e.target.value)}
           // required
@@ -110,7 +131,8 @@ const RegisterPage: React.FC = () => {
           helperText={errors.cfId}
         />
         <FormHelperText>
-          You can set and modify your handles later.
+          You can register a Codeforces account{" "}
+          <PopoutLink to="https://codeforces.com/register">here</PopoutLink>.
         </FormHelperText>
 
         <Box marginTop={2}>
@@ -120,11 +142,6 @@ const RegisterPage: React.FC = () => {
           </Button>
         </Box>
 
-        <div>
-          <Typography>
-            Already have an account? <Link to="/login">Sign in now.</Link>
-          </Typography>
-        </div>
         {/* <FormHelperText>
           To use this tool, you need an account on{" "}
           <a href="https://www.acmicpc.net/">Baekjoon Online Judge</a>.

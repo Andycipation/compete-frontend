@@ -1,5 +1,5 @@
 import { createStyles, makeStyles, Theme } from "@material-ui/core";
-import { lightGreen } from "@material-ui/core/colors";
+import { grey, lightGreen } from "@material-ui/core/colors";
 
 export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -12,6 +12,12 @@ export const useStyles = makeStyles((theme: Theme) =>
     },
     cfRating: {
       marginRight: theme.spacing(1),
+    },
+    judgeLogo: {
+      height: theme.spacing(8),
+      borderColor: grey[900],
+      borderStyle: "solid",
+      borderWidth: "1px",
     },
     problemListItemUnsolved: {
       padding: theme.spacing(0.1, 2),

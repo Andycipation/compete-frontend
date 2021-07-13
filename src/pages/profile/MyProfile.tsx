@@ -11,11 +11,15 @@ import ProfileInfo from "../../components/ProfileInfo";
 import UserContext from "../../store/userContext";
 
 const MyProfilePage: React.FC = () => {
-  const { user } = useContext(UserContext);
+  const { isLoading, user } = useContext(UserContext);
+
+  if (isLoading) {
+    return <Typography>loading...</Typography>;
+  }
 
   return (
     <Container>
-      <Typography variant="h5">My Account</Typography>
+      <Typography variant="h1">My Account</Typography>
       <Typography variant="body1">
         <Link to="/edit/profile">Edit profile</Link>
       </Typography>

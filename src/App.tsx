@@ -16,7 +16,7 @@ import Layout from "./layout/Layout";
 
 import AboutPage from "./pages/About";
 import EditProfilePage from "./pages/EditProfile";
-import HomePage from "./pages/Home";
+import HomePage from "./pages/home/Home";
 import LoginPage from "./pages/Login";
 import LogoutPage from "./pages/Logout";
 import MyProfilePage from "./pages/profile/MyProfile";
@@ -61,7 +61,7 @@ const App: React.FC = () => {
           <Route path="/" exact>
             <HomePage />
           </Route>
-          <Route path="/users">
+          <Route path="/users" exact>
             <UsersPage />
           </Route>
 
@@ -70,10 +70,10 @@ const App: React.FC = () => {
             <ProblemPage />
           </Route>
 
-          <ProtectedRoute path="/user">
+          <ProtectedRoute path="/user" exact>
             <MyProfilePage />
           </ProtectedRoute>
-          <Route path="/user/:username" exact>
+          <Route path="/user/:username">
             <OtherProfilePage />
           </Route>
 

@@ -4,6 +4,7 @@ import axios from "../axiosConfig";
 import { LOGGED_OUT_USER, User } from "../interfaces/User";
 
 interface UserContextData {
+  isLoading: boolean;
   user: User;
   handleLogin: (username: string) => Promise<void>;
   handleLogout: () => Promise<void>;
@@ -11,6 +12,7 @@ interface UserContextData {
 
 const UserContext = createContext<UserContextData>({
   // TODO: fix this "hack"? (is this even a hack?)
+  isLoading: true,
   user: LOGGED_OUT_USER,
   handleLogin: async () => {
     console.error("called handleLogin before init");
@@ -27,7 +29,7 @@ interface Props {
 export const UserContextProvider: React.FC<Props> = (props: Props) => {
   const [username, setUsername] = useState("");
 
-  const { data: user } = useQuery(
+  const { data: user, isLoading } = useQuery(
     ["user", username],
     async () => {
       if (username) {
@@ -52,6 +54,7 @@ export const UserContextProvider: React.FC<Props> = (props: Props) => {
   };
 
   const context: UserContextData = {
+    isLoading,
     user: user ?? LOGGED_OUT_USER,
     handleLogin,
     handleLogout,
