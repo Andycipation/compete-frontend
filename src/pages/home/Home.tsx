@@ -12,6 +12,7 @@ import { useStyles } from "./styles";
 
 const HomePage: React.FC = () => {
   const {
+    isLoading,
     user: {
       username,
       boj: { userId: bojId },
@@ -67,6 +68,10 @@ const HomePage: React.FC = () => {
       </Card>
     </div>
   );
+
+  if (isLoading) {
+    return <Typography variant="body1">loading...</Typography>;
+  }
 
   return <Container>{username ? loggedInJsx : loggedOutJsx}</Container>;
 };

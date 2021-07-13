@@ -1,14 +1,5 @@
-import React, { useContext } from "react";
+import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import { Typography } from "@material-ui/core";
-
-import axios from "./axiosConfig";
-import jwt from "jsonwebtoken";
-
-import { useQuery } from "react-query";
-import UserContext from "./store/userContext";
-import { RefreshTokenResponse } from "./common/interfaces/requests";
-import { setAccessToken } from "./store/accessToken";
 
 import ProtectedRoute from "./components/ProtectedRoute";
 
@@ -26,34 +17,7 @@ import ProblemPage from "./pages/problem/Problem";
 import RegisterPage from "./pages/Register";
 import UsersPage from "./pages/Users";
 
-interface AccessTokenPayload {
-  iat: number; // issued at
-  exp: number; // expiry time
-  username: string;
-}
-
 const App: React.FC = () => {
-  const userContext = useContext(UserContext);
-
-  const { isLoading, isError } = useQuery(["refreshToken"], async () => {
-    const res = await axios.post<RefreshTokenResponse>("/refresh-token");
-    const { ok, accessToken } = res.data;
-    if (ok) {
-      setAccessToken(accessToken);
-      const payload = jwt.decode(accessToken) as AccessTokenPayload;
-      await userContext.handleLogin(payload.username);
-    }
-    // TODO: wait for userContext to finish loading?
-  });
-
-  if (isLoading) {
-    return <Typography variant="body1">loading...</Typography>;
-  }
-
-  if (isError) {
-    return <Typography variant="body1">An error occured.</Typography>;
-  }
-
   return (
     <BrowserRouter>
       <Layout>

@@ -98,10 +98,10 @@ const RegisterPage: React.FC = () => {
         {/* TODO: add a "confirm password" field? */}
 
         <Typography variant="h3" style={{ marginTop: theme.spacing(5) }}>
-          Usernames
+          Judge Usernames
         </Typography>
         <Typography variant="body2">
-          You can set and modify your usernames later.
+          Link your judge accounts here to get problem recommendations.
         </Typography>
 
         {/* Baekjoon Online Judge */}
@@ -141,11 +141,6 @@ const RegisterPage: React.FC = () => {
             Sign up
           </Button>
         </Box>
-
-        {/* <FormHelperText>
-          To use this tool, you need an account on{" "}
-          <a href="https://www.acmicpc.net/">Baekjoon Online Judge</a>.
-        </FormHelperText> */}
       </form>
     </Container>
   );
