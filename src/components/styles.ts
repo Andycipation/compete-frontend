@@ -7,12 +7,9 @@ export const useStyles = makeStyles((theme: Theme) =>
       borderRadius: theme.spacing(1),
     },
     bojTierBadge: {
-      height: "15px",
-      marginRight: theme.spacing(1),
+      height: "1rem",
     },
-    cfRating: {
-      marginRight: theme.spacing(1),
-    },
+    cfRating: {},
     judgeLogo: {
       height: theme.spacing(8),
       borderColor: grey[900],
@@ -26,7 +23,7 @@ export const useStyles = makeStyles((theme: Theme) =>
       padding: theme.spacing(0.1, 2),
       backgroundColor: lightGreen[500],
     },
-    problemListContainer: {
+    problemListsContainer: {
       margin: theme.spacing(3, 1),
     },
   })

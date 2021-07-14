@@ -25,7 +25,7 @@ const HomePage: React.FC = () => {
 
   const loggedInJsx = (
     <div>
-      <Container className={formClasses.problemListContainer}>
+      <Container className={formClasses.problemListsContainer}>
         {bojId ? (
           <BojSets username={username} />
         ) : (
@@ -35,7 +35,7 @@ const HomePage: React.FC = () => {
           </Typography>
         )}
       </Container>
-      <Container className={formClasses.problemListContainer}>
+      <Container className={formClasses.problemListsContainer}>
         {cfId ? (
           <CodeforcesSets username={username} />
         ) : (

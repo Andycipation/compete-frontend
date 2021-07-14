@@ -49,7 +49,9 @@ export const UserContextProvider: React.FC<Props> = (props: Props) => {
         setAccessToken(accessToken);
         const payload = jwt.decode(accessToken) as AccessTokenPayload;
         await handleLogin(payload.username);
-        const { data: user } = await axios.get<User>(`/user/${username}`);
+        const { data: user } = await axios.get<User>(
+          `/user/${payload.username}`
+        );
         // console.log(username, user);
         return user;
       }

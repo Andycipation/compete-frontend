@@ -1,3 +1,4 @@
+import { Box } from "@material-ui/core";
 import React from "react";
 
 const tierBadgeUrl = (tier: string | number): string => {
@@ -11,7 +12,11 @@ interface Props {
 
 const TierBadge: React.FC<Props> = ({ tier, ...rest }: Props) => {
   // rest: e.g. className to control margins
-  return <img src={tierBadgeUrl(tier)} alt={`tier${tier}`} {...rest} />;
+  return (
+    <Box>
+      <img src={tierBadgeUrl(tier)} alt={`tier${tier}`} {...rest} />
+    </Box>
+  );
 };
 
 export default TierBadge;

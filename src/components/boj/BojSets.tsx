@@ -1,10 +1,11 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 import { Grid, Typography } from "@material-ui/core";
 
 import axios from "../../axiosConfig";
 import { useQuery } from "react-query";
 
-import { ProblemSets } from "../../common/interfaces/data";
+import { ProblemMetadata, ProblemSets } from "../../common/interfaces/data";
 import ProblemList from "../ProblemList";
 import TierBadge from "./TierBadge";
 import { useStyles } from "../styles";
@@ -15,6 +16,7 @@ interface Props {
 
 const BojSets: React.FC<Props> = ({ username }: Props) => {
   const classes = useStyles();
+  const history = useHistory();
 
   const {
     data: problemSets,
@@ -59,6 +61,13 @@ const BojSets: React.FC<Props> = ({ username }: Props) => {
               // TODO: toggle show/not show?
               renderDifficulty={(d) => {
                 return <TierBadge className={classes.bojTierBadge} tier={d} />;
+              }}
+              getListItemProps={(problem: ProblemMetadata) => {
+                return {
+                  onClick: () => {
+                    history.push(`/problem/${problem.id}`);
+                  },
+                };
               }}
             />
           </Grid>
