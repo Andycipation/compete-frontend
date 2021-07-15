@@ -48,16 +48,15 @@ export const parseHtmlAndMathjax = (
   config = defaultParserConfig
 ): string => {
   // find displayMath delimiters first?
-  // console.log("html:", html);
   const len = html.length;
 
   html = html.replaceAll('src="/', 'src="https://www.acmicpc.net/');
   html = html.replaceAll("\\(", "$");
   html = html.replaceAll("\\)", "$");
+  // html = html.replaceAll("$$$", "$"); // for problems from Codeforces later?
+  html = html.replaceAll("&nbsp;", "~");
   // html.replaceAll("\\[", config.displayMathReplacement[0]);
   // html.replaceAll("\\]", config.displayMathReplacement[1]);
-
-  // console.log("html:", html);
 
   const dollarSigns = [];
   for (let i = 0; i < len; i++) {
@@ -88,7 +87,6 @@ export const parseHtmlAndMathjax = (
       const next = dollarSigns[i + 1];
       let math = html.substring(last + 1, next);
       math = math.replaceAll("&lt;", "<");
-      // console.log("math:", math);
       parts.push(math);
       parts.push(config.inlineMathReplacement[1]);
       last = next;
