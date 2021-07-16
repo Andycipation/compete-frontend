@@ -54,7 +54,6 @@ export const parseHtmlAndMathjax = (
   html = html.replaceAll("\\(", "$");
   html = html.replaceAll("\\)", "$");
   // html = html.replaceAll("$$$", "$"); // for problems from Codeforces later?
-  html = html.replaceAll("&nbsp;", "~");
   // html.replaceAll("\\[", config.displayMathReplacement[0]);
   // html.replaceAll("\\]", config.displayMathReplacement[1]);
 
@@ -87,6 +86,7 @@ export const parseHtmlAndMathjax = (
       const next = dollarSigns[i + 1];
       let math = html.substring(last + 1, next);
       math = math.replaceAll("&lt;", "<");
+      math = math.replaceAll("&nbsp;", "~");
       parts.push(math);
       parts.push(config.inlineMathReplacement[1]);
       last = next;
