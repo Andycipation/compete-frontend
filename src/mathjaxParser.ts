@@ -43,12 +43,35 @@ const defaultParserConfig: MathjaxParserConfig = {
   // displayMathReplacement: ["<MyTeX block math={String.raw`", "`} />"],
 };
 
+const transformText = (text: string) => {
+  const parts = [];
+  for (let i = 0; i < text.length; i++) {
+    if (text[i] == "{") {
+      parts.push('{"{"}');
+    } else if (text[i] == "}") {
+      parts.push('{"}"}');
+    } else {
+      parts.push(text[i]);
+    }
+  }
+  // now the parser works on https://www.acmicpc.net/problem/18586
+  return parts.join("");
+};
+
+const transformMath = (math: string) => {
+  math = math.replaceAll("&lt;", " < ");
+  math = math.replaceAll("&nbsp;", "~");
+  return math;
+};
+
 export const parseHtmlAndMathjax = (
   html: string,
   config = defaultParserConfig
 ): string => {
   // find displayMath delimiters first?
   const len = html.length;
+
+  // console.log("given html:", html);
 
   html = html.replaceAll('src="/', 'src="https://www.acmicpc.net/');
   html = html.replaceAll("\\(", "$");
@@ -70,24 +93,23 @@ export const parseHtmlAndMathjax = (
   let last = -1;
   for (let i = 0; i <= count; i += 2) {
     if (i == count) {
-      parts.push(html.substr(last + 1));
+      const text = html.substr(last + 1);
+      parts.push(transformText(text));
       break;
     }
     {
       // opening
       const next = dollarSigns[i];
       const text = html.substring(last + 1, next);
-      parts.push(text);
+      parts.push(transformText(text));
       parts.push(config.inlineMathReplacement[0]);
       last = next;
     }
     {
       // closing
       const next = dollarSigns[i + 1];
-      let math = html.substring(last + 1, next);
-      math = math.replaceAll("&lt;", "<");
-      math = math.replaceAll("&nbsp;", "~");
-      parts.push(math);
+      const math = html.substring(last + 1, next);
+      parts.push(transformMath(math));
       parts.push(config.inlineMathReplacement[1]);
       last = next;
     }
