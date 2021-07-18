@@ -62,10 +62,6 @@ const EditProfilePage: React.FC = () => {
     }
   };
 
-  if (userContext.isLoading) {
-    return <Typography>loading...</Typography>;
-  }
-
   if (!userContext.user.username) {
     // something went very wrong with ProtectedRoute lol
     return <Redirect to="/" />;

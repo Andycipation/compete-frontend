@@ -11,11 +11,7 @@ import ProfileInfo from "../../components/ProfileInfo";
 import UserContext from "../../store/userContext";
 
 const MyProfilePage: React.FC = () => {
-  const { isLoading, user } = useContext(UserContext);
-
-  if (isLoading) {
-    return <Typography>loading...</Typography>;
-  }
+  const { user } = useContext(UserContext);
 
   return (
     <Container>

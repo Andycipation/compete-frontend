@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import { Typography } from "@material-ui/core";
 import { Redirect, Route, RouteProps } from "react-router";
 
 import UserContext from "../store/userContext";
@@ -9,11 +8,7 @@ const ProtectedRoute: React.FC<RouteProps> = ({
   children,
   ...rest
 }: RouteProps) => {
-  const { isLoading, user } = useContext(UserContext);
-
-  if (isLoading) {
-    return <Typography>loading...</Typography>;
-  }
+  const { user } = useContext(UserContext);
 
   if (!user.username) {
     return <Redirect to={`/login?next=${path}`} />;

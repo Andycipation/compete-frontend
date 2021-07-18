@@ -7,9 +7,9 @@ import jwt from "jsonwebtoken";
 import { RefreshTokenResponse } from "../common/interfaces/requests";
 import { LOGGED_OUT_USER, User } from "../interfaces/User";
 import { setAccessToken } from "./accessToken";
+import { Typography } from "@material-ui/core";
 
 interface UserContextData {
-  isLoading: boolean;
   user: User;
   handleLogin: (username: string) => Promise<void>;
   handleLogout: () => Promise<void>;
@@ -17,7 +17,6 @@ interface UserContextData {
 
 const UserContext = createContext<UserContextData>({
   // TODO: fix this "hack"? (is this even a hack?)
-  isLoading: true,
   user: LOGGED_OUT_USER,
   handleLogin: async () => {
     console.error("called handleLogin before init");
@@ -40,7 +39,7 @@ interface AccessTokenPayload {
 export const UserContextProvider: React.FC<Props> = (props: Props) => {
   const [username, setUsername] = useState("");
 
-  const { data: user, isLoading } = useQuery(
+  const { data: user, isPlaceholderData } = useQuery(
     ["user", username],
     async () => {
       const res = await axios.post<RefreshTokenResponse>("/refresh-token");
@@ -57,7 +56,7 @@ export const UserContextProvider: React.FC<Props> = (props: Props) => {
       }
       return LOGGED_OUT_USER;
     },
-    { initialData: LOGGED_OUT_USER }
+    { placeholderData: LOGGED_OUT_USER }
   );
 
   const handleLogin = async (username: string) => {
@@ -72,11 +71,14 @@ export const UserContextProvider: React.FC<Props> = (props: Props) => {
   };
 
   const context: UserContextData = {
-    isLoading,
     user: user ?? LOGGED_OUT_USER,
     handleLogin,
     handleLogout,
   };
+
+  if (isPlaceholderData) {
+    return <Typography>loading...</Typography>;
+  }
 
   return (
     <UserContext.Provider value={context}>
