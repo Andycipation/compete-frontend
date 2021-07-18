@@ -11,7 +11,7 @@ interface Props {
 }
 
 const ProfileInfo: React.FC<Props> = ({ user }: Props) => {
-  console.log(user);
+  // console.log(user);
 
   return (
     <>

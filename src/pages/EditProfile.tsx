@@ -55,7 +55,7 @@ const EditProfilePage: React.FC = () => {
       await userContext.handleLogin(username);
       history.push("/");
     } catch (err) {
-      console.log(err.response.status);
+      // console.log(err.response.status);
       const errors: UpdateFields = err.response.data.errors;
       setErrors(errors);
       setSubmitted(false);
