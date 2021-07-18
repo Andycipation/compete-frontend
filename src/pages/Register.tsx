@@ -1,6 +1,7 @@
 import React, { FormEvent, useContext, useState } from "react";
+import { Helmet } from "react-helmet";
 import { Link, Redirect } from "react-router-dom";
-import axios from "../axiosConfig";
+
 import {
   Box,
   Button,
@@ -10,6 +11,8 @@ import {
   Typography,
   useTheme,
 } from "@material-ui/core";
+
+import axios from "../axiosConfig";
 
 import UserContext from "../store/userContext";
 import { setAccessToken } from "../store/accessToken";
@@ -56,6 +59,9 @@ const RegisterPage: React.FC = () => {
 
   return (
     <Container maxWidth="xs">
+      <Helmet>
+        <title>Register</title>
+      </Helmet>
       <Typography variant="h1">Sign up for Compete</Typography>
       <Typography variant="body2">
         Already have an account? <Link to="/login">Sign in now.</Link>

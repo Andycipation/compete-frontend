@@ -3,6 +3,7 @@ Not used yet.
 */
 
 import React from "react";
+import { Helmet } from "react-helmet";
 import { Container, Typography } from "@material-ui/core";
 import axios from "../../axiosConfig";
 
@@ -37,6 +38,9 @@ const OtherProfilePage: React.FC = () => {
 
   return (
     <Container>
+      <Helmet>
+        <title>User {username}</title>
+      </Helmet>
       <Typography variant="h1">{username}&apos;s Profile</Typography>
       <ProfileInfo user={user} />
     </Container>

@@ -1,7 +1,10 @@
 import React, { useContext } from "react";
+import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
 import { useQuery } from "react-query";
-import { Typography } from "@material-ui/core";
+
+import { Container, Typography } from "@material-ui/core";
+
 import assert from "assert";
 import axios from "../axiosConfig";
 
@@ -24,11 +27,14 @@ const LogoutPage: React.FC = () => {
   }
 
   return (
-    <div>
+    <Container>
+      <Helmet>
+        <title>Log in</title>
+      </Helmet>
       <Typography variant="body1">
         See you later! <Link to="/">Return home</Link>
       </Typography>
-    </div>
+    </Container>
   );
 };
 

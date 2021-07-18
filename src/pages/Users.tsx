@@ -1,9 +1,12 @@
 import React from "react";
+import { Helmet } from "react-helmet";
 import { useHistory } from "react-router-dom";
-import axios from "../axiosConfig";
+import { useQuery } from "react-query";
 
 import { Container, List, ListItem, Typography } from "@material-ui/core";
-import { useQuery } from "react-query";
+
+import axios from "../axiosConfig";
+
 import { User } from "../interfaces/User";
 
 const UsersPage: React.FC = () => {
@@ -21,6 +24,9 @@ const UsersPage: React.FC = () => {
   // TODO: implement
   return (
     <Container>
+      <Helmet>
+        <title>Users</title>
+      </Helmet>
       <Typography variant="h1">Users</Typography>
       <List>
         {users.map((user: User) => {

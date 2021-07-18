@@ -3,6 +3,7 @@ Not used yet.
 */
 
 import React from "react";
+import { Helmet } from "react-helmet";
 import { useParams } from "react-router-dom";
 import { useQuery } from "react-query";
 import { Container, Typography } from "@material-ui/core";
@@ -60,6 +61,9 @@ const ProblemPage: React.FC<ProblemPageProps> = (props: ProblemPageProps) => {
 
   return (
     <Container>
+      <Helmet>
+        <title>Problem {id} - &mdash;</title>
+      </Helmet>
       {props.showTier && <TierBadge tier={problem.difficulty} />}
       <Typography variant="h4">{problem.title}</Typography>
       <Typography variant="subtitle2">Problem {problem.id}</Typography>

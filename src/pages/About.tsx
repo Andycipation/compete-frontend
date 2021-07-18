@@ -1,11 +1,15 @@
-import { Container, Typography } from "@material-ui/core";
 import React from "react";
+import { Helmet } from "react-helmet";
+import { Container, Typography } from "@material-ui/core";
 
 import AboutInfo from "../components/AboutInfo";
 
 const AboutPage: React.FC = () => {
   return (
     <Container>
+      <Helmet>
+        <title>About Compete</title>
+      </Helmet>
       <Typography variant="h1">About</Typography>
       <AboutInfo />
 

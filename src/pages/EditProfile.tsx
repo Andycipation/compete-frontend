@@ -4,8 +4,9 @@ server should revoke refresh token and access token
 */
 
 import React, { FormEvent, useContext, useState } from "react";
+import { Helmet } from "react-helmet";
 import { Redirect, useHistory } from "react-router-dom";
-import axios from "../axiosConfig";
+
 import {
   Box,
   Button,
@@ -13,10 +14,12 @@ import {
   TextField,
   Typography,
 } from "@material-ui/core";
+import { useFormStyles } from "../ui/formStyles";
+
+import axios from "../axiosConfig";
 
 import UserContext from "../store/userContext";
 import { UpdateFields } from "../common/interfaces/requests";
-import { useFormStyles } from "../ui/formStyles";
 import { getAccessToken } from "../store/accessToken";
 
 const EditProfilePage: React.FC = () => {
@@ -69,6 +72,9 @@ const EditProfilePage: React.FC = () => {
 
   return (
     <Container maxWidth="xs">
+      <Helmet>
+        <title>Edit Profile</title>
+      </Helmet>
       <Typography variant="h1">
         Edit Profile: {userContext.user.username}
       </Typography>

@@ -1,14 +1,17 @@
 import React, { useContext } from "react";
+import { Helmet } from "react-helmet";
 import { Link as RouterLink } from "react-router-dom";
+
 import { Card, Container, Typography } from "@material-ui/core";
+import { useStyles as useFormStyles } from "../../components/styles";
+import { useStyles } from "./styles";
 
 import UserContext from "../../store/userContext";
 
+import AboutInfo from "../../components/AboutInfo";
+
 import BojSets from "../../components/boj/BojSets";
 import CodeforcesSets from "../../components/cf/CodeforcesSets";
-import { useStyles as useFormStyles } from "../../components/styles";
-import AboutInfo from "../../components/AboutInfo";
-import { useStyles } from "./styles";
 
 const HomePage: React.FC = () => {
   const {
@@ -68,7 +71,14 @@ const HomePage: React.FC = () => {
     </div>
   );
 
-  return <Container>{username ? loggedInJsx : loggedOutJsx}</Container>;
+  return (
+    <Container>
+      <Helmet>
+        <title>Compete Home</title>
+      </Helmet>
+      {username ? loggedInJsx : loggedOutJsx}
+    </Container>
+  );
 };
 
 export default HomePage;
