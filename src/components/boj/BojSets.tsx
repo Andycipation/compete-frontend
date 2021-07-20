@@ -5,7 +5,7 @@ import { Grid, Typography } from "@material-ui/core";
 import axios from "../../axiosConfig";
 import { useQuery } from "react-query";
 
-import { ProblemMetadata, ProblemSets } from "../../common/interfaces/data";
+import { ProblemMetadata, ProblemSets } from "../../common/interfaces/problem";
 import ProblemList from "../ProblemList";
 import TierBadge from "./TierBadge";
 import { useStyles } from "../styles";

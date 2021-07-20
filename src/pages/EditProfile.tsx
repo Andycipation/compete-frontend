@@ -39,9 +39,6 @@ const EditProfilePage: React.FC = () => {
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
-    if (submitted) {
-      return;
-    }
     setSubmitted(true);
     // it is okay to send passwords over HTTPS
     const data: UpdateFields = {

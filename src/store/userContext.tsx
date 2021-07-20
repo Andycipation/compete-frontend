@@ -71,7 +71,7 @@ export const UserContextProvider: React.FC<Props> = (props: Props) => {
   };
 
   const context: UserContextData = {
-    user: user ?? LOGGED_OUT_USER,
+    user: username.length > 0 && user ? user : LOGGED_OUT_USER,
     handleLogin,
     handleLogout,
   };

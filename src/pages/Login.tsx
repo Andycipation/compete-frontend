@@ -29,6 +29,8 @@ const LoginPage: React.FC = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
+  const [submitted, setSubmitted] = useState(false);
+
   const [errors, setErrors] = useState<RegisterFields>({
     username: "",
     email: "",
@@ -39,6 +41,7 @@ const LoginPage: React.FC = () => {
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
+    setSubmitted(true);
     const data: LoginRequest = { username, password };
     try {
       const res = await axios.post("/login", data);
@@ -48,6 +51,7 @@ const LoginPage: React.FC = () => {
     } catch (err) {
       const errors: RegisterFields = err.response.data.errors;
       setErrors(errors);
+      setSubmitted(false);
     }
   };
   if (userContext.user.username) {
@@ -84,16 +88,14 @@ const LoginPage: React.FC = () => {
           helperText={errors.password}
         />
         <Box marginTop={2}>
-          <Button type="submit" onClick={handleSubmit}>
+          <Button type="submit" onClick={handleSubmit} disabled={submitted}>
             Sign in
           </Button>
         </Box>
 
-        <div>
-          <Typography>
-            Need an account? <Link to="/register">Sign up now.</Link>
-          </Typography>
-        </div>
+        <Typography>
+          Need an account? <Link to="/register">Sign up now.</Link>
+        </Typography>
       </form>
     </Container>
   );

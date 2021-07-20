@@ -7,7 +7,7 @@ import assert from "assert";
 import axios from "../../axiosConfig";
 import { useQuery } from "react-query";
 
-import { ProblemMetadata, ProblemSets } from "../../common/interfaces/data";
+import { ProblemMetadata, ProblemSets } from "../../common/interfaces/problem";
 
 import ProblemList from "../ProblemList";
 

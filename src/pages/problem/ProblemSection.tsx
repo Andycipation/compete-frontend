@@ -23,14 +23,12 @@ interface ProblemSectionProps {
 const ProblemSection: React.FC<ProblemSectionProps> = (
   props: ProblemSectionProps
 ) => {
-  // const s = `<p>Hello {'{'}</p>`;
   return (
     <div>
       <Typography variant="h1">{props.heading}</Typography>
-      {/* use <div> as the root element to avoid an error where a <p> is nested
-      inside of the root <p> tag */}
       <Typography component="div" variant="body1">
-        {/* {parseHtmlAndMathjax(props.htmlWithMathjax)} */}
+        {/* use <div> as the root element to avoid an error where a <p> is nested
+        inside of the root <p> tag */}
         <JsxParser
           components={{ MyTeX }}
           jsx={parseHtmlAndMathjax(props.htmlWithMathjax)}

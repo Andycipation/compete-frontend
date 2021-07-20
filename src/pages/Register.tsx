@@ -31,6 +31,8 @@ const RegisterPage: React.FC = () => {
   const [bojId, setBojId] = useState("");
   const [cfId, setCfId] = useState("");
 
+  const [submitted, setSubmitted] = useState(false);
+
   const [errors, setErrors] = useState<RegisterFields>({
     username: "",
     email: "",
@@ -41,6 +43,7 @@ const RegisterPage: React.FC = () => {
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
+    setSubmitted(true);
     // it is okay to send passwords over HTTPS
     const data: RegisterFields = { username, email, password, bojId, cfId };
     try {
@@ -50,6 +53,7 @@ const RegisterPage: React.FC = () => {
     } catch (err) {
       const errors: RegisterFields = err.response.data.errors;
       setErrors(errors);
+      setSubmitted(false);
     }
   };
 
@@ -143,7 +147,7 @@ const RegisterPage: React.FC = () => {
 
         <Box marginTop={2}>
           {/* Box uses theme.spacing? */}
-          <Button type="submit" onClick={handleSubmit}>
+          <Button type="submit" onClick={handleSubmit} disabled={submitted}>
             Sign up
           </Button>
         </Box>

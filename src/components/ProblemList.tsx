@@ -9,7 +9,7 @@ import {
 } from "@material-ui/core";
 
 import { useStyles } from "./styles";
-import { ProblemForUser, ProblemMetadata } from "../common/interfaces/data";
+import { ProblemForUser, ProblemMetadata } from "../common/interfaces/problem";
 
 interface Props {
   heading: string;

@@ -12,7 +12,7 @@ import ProblemSection from "./ProblemSection";
 
 import axios from "../../axiosConfig";
 
-import { FullProblem } from "../../common/interfaces/data";
+import { FullProblem } from "../../common/interfaces/problem";
 import TierBadge from "../../components/boj/TierBadge";
 
 import PopoutLink from "../../components/PopoutLink";
@@ -42,27 +42,23 @@ const ProblemPage: React.FC<ProblemPageProps> = (props: ProblemPageProps) => {
   });
 
   if (isLoading) {
-    return (
-      <div>
-        <Typography>loading problem data...</Typography>
-      </div>
-    );
+    return <Typography>loading problem data...</Typography>;
   }
 
   if (!problem || isError) {
     return (
-      <div>
-        <Typography>
-          An error occurred and the problem {id} cannot be fetched at this time.
-        </Typography>
-      </div>
+      <Typography>
+        An error occurred and the problem {id} cannot be fetched at this time.
+      </Typography>
     );
   }
 
   return (
     <Container>
       <Helmet>
-        <title>Problem {id} - &mdash;</title>
+        <title>
+          Problem {id} &mdash; {problem.title}
+        </title>
       </Helmet>
       {props.showTier && <TierBadge tier={problem.difficulty} />}
       <Typography variant="h4">{problem.title}</Typography>

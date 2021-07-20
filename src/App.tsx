@@ -15,6 +15,7 @@ import NotFoundPage from "./pages/NotFound";
 import OtherProfilePage from "./pages/profile/OtherProfile";
 import ProblemPage from "./pages/problem/Problem";
 import RegisterPage from "./pages/Register";
+import SubsPage from "./pages/Subs";
 import UsersPage from "./pages/Users";
 
 const App: React.FC = () => {
@@ -37,8 +38,11 @@ const App: React.FC = () => {
           <ProtectedRoute path="/user" exact>
             <MyProfilePage />
           </ProtectedRoute>
-          <Route path="/user/:username">
+          <Route path="/user/:username" exact>
             <OtherProfilePage />
+          </Route>
+          <Route path="/user/:username/submissions" exact>
+            <SubsPage />
           </Route>
 
           <ProtectedRoute path="/edit/profile" exact>
