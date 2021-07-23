@@ -16,10 +16,9 @@ import { FullProblem } from "../../common/interfaces/problem";
 import TierBadge from "../../components/boj/TierBadge";
 
 import PopoutLink from "../../components/PopoutLink";
+import { getPlatform } from "../../platforms/platforms";
 
-const bojProblemLink = (id: string) => {
-  return `https://www.acmicpc.net/problem/${id}`;
-};
+const boj = getPlatform("boj");
 
 const bojSubmitLink = (id: string) => {
   return `https://www.acmicpc.net/submit/${id}`;
@@ -66,7 +65,7 @@ const ProblemPage: React.FC<ProblemPageProps> = (props: ProblemPageProps) => {
 
       {/* external links */}
       <Typography variant="body2">
-        <PopoutLink to={bojProblemLink(problem.id)}>
+        <PopoutLink to={boj.getProblemLink(problem.id)}>
           View problem {problem.id} on BOJ
         </PopoutLink>
       </Typography>

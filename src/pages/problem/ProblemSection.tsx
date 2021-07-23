@@ -32,7 +32,6 @@ const ProblemSection: React.FC<ProblemSectionProps> = (
         <JsxParser
           components={{ MyTeX }}
           jsx={parseHtmlAndMathjax(props.htmlWithMathjax)}
-          // jsx={s}
           autoCloseVoidElements
           showWarnings
         />

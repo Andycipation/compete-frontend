@@ -4,11 +4,11 @@ import { useParams } from "react-router-dom";
 import { useQuery } from "react-query";
 import axios from "../axiosConfig";
 
-import { Container, Typography } from "@material-ui/core";
+import { Container, Grid, Typography } from "@material-ui/core";
 import { Sub } from "../common/interfaces/sub";
-import PopoutLink from "../components/PopoutLink";
+import Submission from "../components/Submission";
 
-const SubsPage: React.FC = () => {
+const SubmissionsPage: React.FC = () => {
   const { username } = useParams<{ username: string }>();
 
   const {
@@ -43,21 +43,13 @@ const SubsPage: React.FC = () => {
         <title>{heading}</title>
       </Helmet>
       <Typography variant="h2">{heading}</Typography>
-      {subs.map((sub, index) => (
-        // TODO: massive cleanup, e.g. move into components
-        <div key={index}>
-          <PopoutLink
-            to={`https://codeforces.com/contest/${sub.problemId.substring(
-              0,
-              4
-            )}/submission/${sub.subId}`}
-          >
-            <Typography>{sub.subId}</Typography>
-          </PopoutLink>
-        </div>
-      ))}
+      <Grid>
+        {subs.map((sub, index) => (
+          <Submission key={index} sub={sub} />
+        ))}
+      </Grid>
     </Container>
   );
 };
 
-export default SubsPage;
+export default SubmissionsPage;

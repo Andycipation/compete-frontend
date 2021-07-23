@@ -2,14 +2,15 @@ import React from "react";
 import { Grid, Typography } from "@material-ui/core";
 import { useStyles } from "../styles";
 
-import assert from "assert";
-
 import axios from "../../axiosConfig";
 import { useQuery } from "react-query";
 
 import { ProblemMetadata, ProblemSets } from "../../common/interfaces/problem";
 
 import ProblemList from "../ProblemList";
+import { getPlatform } from "../../platforms/platforms";
+
+const cf = getPlatform("cf");
 
 interface Props {
   username: string;
@@ -51,16 +52,6 @@ const coloredRatingHtml = (rating: number) => {
     }
   }
   return <span style={{ color }}>{rating}</span>;
-};
-
-const cfProblemLink = (problemId: string): string => {
-  const id = problemId;
-  const prefixMatch = id.match(/^[0-9]+/);
-  assert(prefixMatch);
-  const contestId = prefixMatch[0];
-  const problemIndex = id.substr(contestId.length);
-  // TODO: use this or contest link?
-  return `https://codeforces.com/problemset/problem/${contestId}/${problemIndex}`;
 };
 
 const CodeforcesSets: React.FC<Props> = ({ username }: Props) => {
@@ -112,7 +103,7 @@ const CodeforcesSets: React.FC<Props> = ({ username }: Props) => {
               getListItemProps={(problem: ProblemMetadata) => {
                 return {
                   component: "a",
-                  href: cfProblemLink(problem.id),
+                  href: cf.getProblemLink(problem.id),
                   target: "_blank",
                   rel: "noreferrer",
                 };
