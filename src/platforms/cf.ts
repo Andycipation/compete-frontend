@@ -16,7 +16,7 @@ const cf: Platform = {
   getProblemLink: (problemId: string) => {
     const contestId = getContestId(problemId);
     assert(contestId);
-    const problemIndex = contestId.substr(contestId.length);
+    const problemIndex = problemId.substr(contestId.length);
     // TODO: use problem set or contest link?
     return `https://codeforces.com/problemset/problem/${contestId}/${problemIndex}`;
   },
