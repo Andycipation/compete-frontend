@@ -24,6 +24,7 @@
     "axios": "^0.21.1",
     "eslint": "^7.29.0",
     "eslint-plugin-react": "^7.24.0",
+    "get-user-locale": "^1.4.0",
     "jsonwebtoken": "^8.5.1",
     "katex": "^0.13.11",
     "react": "^17.0.2",

@@ -15,7 +15,7 @@ import NotFoundPage from "./pages/NotFound";
 import OtherProfilePage from "./pages/profile/OtherProfile";
 import ProblemPage from "./pages/problem/Problem";
 import RegisterPage from "./pages/Register";
-import SubmissionsPage from "./pages/SubmissionsPage";
+import SubmissionsPage from "./pages/Submissions";
 import UsersPage from "./pages/Users";
 
 const App: React.FC = () => {

@@ -38,22 +38,30 @@ const Submission: React.FC<Props> = ({ sub }: Props) => {
   const platform = cf;
 
   return (
-    <Grid container item direction="column">
+    <Grid item>
       <Card className={classes.subCard} raised>
-        <Grid item>
-          <PopoutLink to={platform.getSubLink(sub)}>
-            <Typography>{sub.subId}</Typography>
-          </PopoutLink>
+        <Grid container direction="row">
+          <Grid item xs={1}>
+            <PopoutLink to={platform.getSubLink(sub)}>
+              <Typography>Link</Typography>
+            </PopoutLink>
+          </Grid>
+          <Grid item xs={2}>
+            <PopoutLink to={platform.getProblemLink(sub.problemId)}>
+              <Typography>Problem</Typography>
+            </PopoutLink>
+          </Grid>
+          <Typography>Memory: {sub.memory} bytes</Typography>
+          <Typography>Running time: {sub.runningTime} milliseconds</Typography>
+          <Grid item xs={2}>
+            <Typography>
+              {new Date(sub.unixDate * 1000).toLocaleString()}
+            </Typography>
+          </Grid>
+          <Grid item xs={1}>
+            <Typography>Verdict: {sub.verdict}</Typography>
+          </Grid>
         </Grid>
-        <Grid item>
-          <PopoutLink to={platform.getProblemLink(sub.problemId)}>
-            <Typography>Problem</Typography>
-          </PopoutLink>
-        </Grid>
-        <Typography>Memory: {sub.memory} bytes</Typography>
-        <Typography>Running time: {sub.runningTime} milliseconds</Typography>
-        <Typography>Submitted: {sub.date.toLocaleString()}</Typography>
-        {/* <Typography>Verdict: {sub.verdict}</Typography> */}
       </Card>
     </Grid>
   );

@@ -43,7 +43,7 @@ const SubmissionsPage: React.FC = () => {
         <title>{heading}</title>
       </Helmet>
       <Typography variant="h2">{heading}</Typography>
-      <Grid>
+      <Grid container spacing={1}>
         {subs.map((sub, index) => (
           <Submission key={index} sub={sub} />
         ))}
