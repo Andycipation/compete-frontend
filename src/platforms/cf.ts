@@ -17,7 +17,10 @@ const cf: Platform = {
     const contestId = getContestId(problemId);
     assert(contestId);
     const problemIndex = problemId.substr(contestId.length);
-    // TODO: use problem set or contest link?
+    // use contest link because then you can check standings?
+    // Actually, use problemset link because standings shouldn't matter when
+    // practicing problem solving.
+    // return `https://codeforces.com/contest/${contestId}/problem/${problemIndex}`;
     return `https://codeforces.com/problemset/problem/${contestId}/${problemIndex}`;
   },
 
