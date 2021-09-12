@@ -38,9 +38,12 @@ const Submission: React.FC<Props> = ({ sub }: Props) => {
   const platform = cf;
 
   return (
-    <Grid item>
+    <Grid item xs={12}>
       <Card className={classes.subCard} raised>
         <Grid container direction="row">
+          <Grid item xs={1}>
+            <platform.Icon />
+          </Grid>
           <Grid item xs={1}>
             <PopoutLink to={platform.getSubLink(sub)}>
               <Typography>Link</Typography>
@@ -51,13 +54,13 @@ const Submission: React.FC<Props> = ({ sub }: Props) => {
               <Typography>Problem</Typography>
             </PopoutLink>
           </Grid>
-          <Typography>Memory: {sub.memory} bytes</Typography>
+          {/* <Typography>Memory: {sub.memory} bytes</Typography>
           <Typography>Running time: {sub.runningTime} milliseconds</Typography>
           <Grid item xs={2}>
             <Typography>
               {new Date(sub.unixDate * 1000).toLocaleString()}
             </Typography>
-          </Grid>
+          </Grid> */}
           <Grid item xs={1}>
             <Typography>Verdict: {sub.verdict}</Typography>
           </Grid>

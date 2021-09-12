@@ -1,4 +1,5 @@
 import assert from "assert";
+import CfIcon from "../components/cf/CfIcon";
 import { Platform } from "./Platform";
 
 export const getContestId = (problemId: string): string | null => {
@@ -12,6 +13,7 @@ export const getContestId = (problemId: string): string | null => {
 
 const cf: Platform = {
   name: "cf",
+  Icon: CfIcon,
 
   getProblemLink: (problemId: string) => {
     const contestId = getContestId(problemId);
